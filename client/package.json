@@ -25,6 +25,11 @@
     "url": "https://github.com/BlackrockDigital/startbootstrap-new-age.git"
   },
   "dependencies": {
+    "angular": "^1.5.8",
+    "angular-animate": "^1.5.8",
+    "angular-route": "^1.5.8",
+    "angular-spinner": "^0.8.1",
+    "express": "^4.14.0",
     "simple-line-icons": "^2.3.2"
   }
 }
