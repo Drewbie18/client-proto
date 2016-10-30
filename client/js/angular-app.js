@@ -12,7 +12,7 @@
  */
 
 
-var angularApp = angular.module('angular-app', ['ngRoute', 'ngAnimate']);
+var angularApp = angular.module('angular-app', ['ngRoute', 'ngAnimate', 'ui.bootstrap']);
 
 
 //add logging logic (turn off and on)
@@ -23,7 +23,6 @@ angularApp.config(function ($logProvider) {
     $logProvider.debugEnabled(true);
 
 });
-
 
 
 angularApp.config(function ($routeProvider) {
@@ -38,12 +37,12 @@ angularApp.config(function ($routeProvider) {
             templateUrl: 'client/views/about.html',
             controller: 'about-ctrl'
         })
-        .when('/user-reg', {
-            templateUrl: 'client/views/client-registration.html',
+        .when('/client-reg', {
+            templateUrl: 'client/views/client-reg.html',
             controller: 'client-reg-ctrl'
         })
-        .when('/client-reg', {
-            templateUrl: 'client/views/user-registration.html',
+        .when('/user-reg', {
+            templateUrl: 'client/views/user-reg.html',
             controller: 'user-reg-ctrl'
         })
 });

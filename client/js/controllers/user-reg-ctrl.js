@@ -10,6 +10,14 @@
 
         $log.debug('user registration controller is here');
 
+        //get the data that was entered in the UI
+
+
+
+
+
+
+
 
     };
 
@@ -19,6 +27,5 @@
 
     //register the controller with the angular module
     angular.module('angular-app').controller('user-reg-ctrl', userRegController);
-
 
 }());
