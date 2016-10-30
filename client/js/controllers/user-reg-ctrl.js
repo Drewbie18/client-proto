@@ -13,25 +13,26 @@
         //get the data that was entered in the UI
 
 
-        $scope.submitUser = function (firstName, lastName, userName, email, password) {
+        $scope.submitUser = function (firstName, lastName, userName, email, mobilePhone, password) {
 
             $log.debug(firstName, lastName, userName, email, password);
 
-            var userData = {
+            var userRegData = {
                 firstName: regService.inspectData(firstName),
                 lastName: regService.inspectData(lastName),
                 userName: regService.inspectData(userName),
                 email: regService.inspectData(email),
+                mobilePhone: regService.inspectData(mobilePhone),
                 password: regService.inspectData(password)
             };
 
-            $log.debug(userData);
+            $log.debug(userRegData);
 
 
             $http({
                 method: 'POST',
                 url: '/api/high-5/create/user',
-                data: userData
+                data: userRegData
 
             }).then(function successCallback(response) {
 

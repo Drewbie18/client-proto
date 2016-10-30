@@ -45,5 +45,16 @@ app.post('/api/high-5/create/user', function (req, res) {
 });
 
 
+//Client API calls that will be forwarded to the Database
+app.post('/api/high-5/create/client', function (req, res) {
+
+    console.log(req.body);
+    res.send('received client post');
+
+});
+
+
+
+
 app.listen(port);
 console.log('The Client is running on port:', port);
