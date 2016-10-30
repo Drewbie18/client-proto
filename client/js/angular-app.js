@@ -17,17 +17,34 @@ var angularApp = angular.module('angular-app', ['ngRoute', 'ngAnimate']);
 
 //add logging logic (turn off and on)
 
+
+angularApp.config(function ($logProvider) {
+
+    $logProvider.debugEnabled(true);
+
+});
+
+
+
 angularApp.config(function ($routeProvider) {
 
     $routeProvider
 
         .when('/', {
             templateUrl: 'client/views/landing.html',
-            controller: 'landing-controller'
+            controller: 'landing-ctrl'
         })
         .when('/about', {
             templateUrl: 'client/views/about.html',
             controller: 'about-ctrl'
+        })
+        .when('/user-reg', {
+            templateUrl: 'client/views/client-registration.html',
+            controller: 'client-reg-ctrl'
+        })
+        .when('/client-reg', {
+            templateUrl: 'client/views/user-registration.html',
+            controller: 'user-reg-ctrl'
         })
 });
 
