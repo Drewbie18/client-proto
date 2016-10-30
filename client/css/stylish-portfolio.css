@@ -268,3 +268,7 @@ footer {
     float: none;
     margin: 0 auto;
 }
+
+#user-reg-submit-btn {
+    margin-top: 10px;
+}
