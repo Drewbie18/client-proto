@@ -1,0 +1,43 @@
+/*DEFINE MIXINS HERE*/
+
+@mixin danger {
+  background-color: red;
+  color: white;
+  font-family: arial;
+}
+
+
+@mixin button-basic{
+
+}
+
+
+/*MIXIN FOR SCREEN SIZES TAKEN ROUGHLY FROM GOOGLE INSPECT*/
+
+@mixin mobile-small() {
+  @media only screen and (min-width: 0px) and (max-width: 320px){
+    @content;
+  }
+}
+
+@mixin mobile-large() {
+  @media only screen and (max-width: 480px) and (min-width: 321px){
+    @content;
+  }
+}
+
+@mixin tablet-screen() {
+  @media only screen and (max-width: 780px)and (min-width: 481px) {
+    @content;
+  }
+}
+@mixin laptop-screen() {
+  @media only screen and (max-width: 1024px) and (min-width: 781px){
+    @content;
+  }
+}
+@mixin large-screens() {
+  @media only screen and (min-width: 1025px) {
+    @content;
+  }
+}

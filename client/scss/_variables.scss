@@ -1,0 +1,22 @@
+/*BASIC Variable set-up with simple conditional example. */
+
+
+
+$theme : default;
+
+
+$text-color: #E80923;
+$theme-color:#080480 ;
+$secondary-color: #ED6205;
+
+
+@if $theme == dark{
+  $text-color: black;
+  $theme-color:#080480 ;
+  $secondary-color: #ED6205;
+
+}@else if $theme == light{
+  $text-color: grey;
+  $theme-color:#080480 ;
+  $secondary-color: #ED6205;
+}

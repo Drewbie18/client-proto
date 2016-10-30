@@ -2,6 +2,10 @@
  * Start Bootstrap - Stylish Portfolio (http://startbootstrap.com/)
  * Copyright 2013-2016 Start Bootstrap
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
+
+
+ THIS FILE IS DEPRECATED Oct 30, 2016 *kept as reference to base stlying. All update to styles shou
+
  */
 
 /* Global Styles */
@@ -264,10 +268,7 @@ footer {
     border-bottom: 5px;
 }
 
-#user-reg-container {
-    float: none;
-    margin: 0 auto;
-}
+
 
 #user-reg-submit-btn, #client-reg-submit-btn {
     margin-top: 10px;

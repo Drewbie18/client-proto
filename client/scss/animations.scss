@@ -1,0 +1,60 @@
+
+.menu-animation.ng-hide-add {
+  -webkit-animation: 0.75s hide;
+  animation: 0.75s hide;
+}
+
+@keyframes hide {
+  from {
+    opacity: 1;
+    left: 0;
+  }
+  to {
+    opacity: 0;
+    left: -100%;
+  }
+}
+
+.menu-animation.ng-hide-remove {
+  -webkit-animation: 0.75s show;
+  animation: 0.75s show;
+}
+
+@keyframes show {
+  from {
+    opacity: 0;
+    left: -100%;
+  }
+  to {
+    opacity: 1;
+    left: 0;
+  }
+}
+
+.warning-animation.ng-hide-add {
+  -webkit-animation: 0.75s hide-warn;
+  animation: 0.75s hide;
+}
+
+@keyframes hide-warn {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.warning-animation.ng-hide-remove {
+  -webkit-animation: 0.75s show-warn;
+  animation: 0.75s show-warn;
+}
+
+@keyframes show-warn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
