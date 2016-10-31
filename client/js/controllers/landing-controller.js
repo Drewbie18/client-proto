@@ -9,9 +9,25 @@
     //this will then be registered to the module.
     var landingController = function ($scope, $http, $log) {
 
-
         $log.debug('landing-controller is here');
 
+
+        //debugging function to test the mongo connection
+        $scope.testMongo = function () {
+
+            $http({
+                method: 'GET',
+                url: '/api/mongo-connect'
+
+            }).then(function successCallback(response) {
+
+                $log.debug(response);
+            }, function errorCallback(response) {
+                $log.debug('There was an error', response);
+
+            });
+
+        }
 
     };
 
