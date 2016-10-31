@@ -27,7 +27,7 @@ var defaultEmail = 'client-proto-5050@yopmail.com';
 var defaultPass = '1234';
 
 //default username to use
-var defaultUserName = 'New User-' + generateRandom(0, 1000);
+var defaultUserName = 'User-' + generateRandom(0, 1000);
 
 var defaultFirstName = 'John';
 var defaultLastName = "Doe";
