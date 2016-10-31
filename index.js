@@ -56,24 +56,33 @@ app.post('/api/high-5/create/user', function (req, res) {
 
     console.log(req.body);
     var testUser = createUser(req.body);
+    var date = new Date();
 
-    UserModel.create({
+    var testUserJson = {
         name: testUser.name,
         firstName: testUser.firstName,
         lastName: testUser.lastName,
         email: testUser.email,
         phone: testUser.phone,
-        password: testUser.password
-    }, function (err, user) {
+        password: testUser.password,
+        registrationDate: date.toJSON(),
+        state: 'NEW',
+        tokens: null,
+        history: null
+    };
 
-        if (err) {
-            res.send(err);
-            return;
-        }
+    console.log(testUserJson);
 
-        res.send('received client post', user);
+    UserModel.create(testUserJson
 
-    })
+        , function (err, user) {
+
+            if (err) {
+                res.send(err);
+                return;
+            }
+            res.send('received client post', user);
+        })
 });
 
 
