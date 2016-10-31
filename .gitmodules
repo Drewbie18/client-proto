@@ -1,0 +1,3 @@
+[submodule "server/models/data"]
+	path = server/models/data
+	url = https://Drewbie18@github.com/Drewbie18/data-proto.git
