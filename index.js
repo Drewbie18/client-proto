@@ -73,16 +73,14 @@ app.post('/api/high-5/create/user', function (req, res) {
 
     console.log(testUserJson);
 
-    UserModel.create(testUserJson
+    UserModel.create(testUserJson, function (err, user) {
 
-        , function (err, user) {
-
-            if (err) {
-                res.send(err);
-                return;
-            }
-            res.send('received client post', user);
-        })
+        if (err) {
+            res.send(err);
+            return;
+        }
+        res.send('received client post', user);
+    })
 });
 
 
