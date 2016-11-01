@@ -3,8 +3,7 @@
  */
 (function () {
 
-    //put all controller logic and services to be used in this function
-    //this will then be registered to the module.
+    //controller logic
     var userRegController = function ($scope, $http, $log, regService) {
 
 
@@ -28,29 +27,21 @@
 
             $log.debug(userRegData);
 
-
             $http({
                 method: 'POST',
-                url: '/api/high-5/create/user',
+                url: '/api/users',
                 data: userRegData
 
             }).then(function successCallback(response) {
-
                 $log.debug(response);
-
             }, function errorCallback(response) {
-
                 $log.debug('There was an error', response);
-
             });
-
         }
-
 
     };
 
-    //use the inject service to ensure that is there is minification the injected
-    //services are not overwritten to s and h as minifiers tend to do.
+    //use the inject service to ensure services are applied after minification
     userRegController.$inject = ['$scope', '$http', '$log', 'regService'];
 
     //register the controller with the angular module

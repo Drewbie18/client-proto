@@ -8,6 +8,19 @@
 var express = require('express');
 var app = express();
 
+// routes ==================================================
+require('./app/routes')(app); // configure our routes
+
+
+// Static Files ==================================================
+app.get('/', function (req, res) {
+    res.sendFile(__dirname + '/client/index.html'); //send index, all other routing done via angular-route
+});
+app.use('/', express.static(__dirname));
+app.use('/assets', express.static(__dirname + '/node_modules'));
+app.use('/js', express.static(__dirname + '/client/js'));
+app.use('/css', express.static(__dirname + '/client/css'));
+app.use('/img', express.static(__dirname + '/client/img'));
 
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
@@ -55,32 +68,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 var port = process.env.port || 5050;
 
 
-//added another virtual route to grab angular and ng-route because these
-// were loaded via npm and therefore were left in a different dir than the rest of the js files.
-app.use('/', express.static(__dirname));
-app.use('/assets', express.static(__dirname + '/node_modules'));
-app.use('/js', express.static(__dirname + '/client/js'));
-app.use('/css', express.static(__dirname + '/client/css'));
-app.use('/img', express.static(__dirname + '/client/img'));
 
-
-//this will send the index page to the frontend and will load all routing etc for SPA.
-// All other routing for simple pages in done in main.js via angular.
-app.get('/', function (req, res) {
-    res.sendFile(__dirname + '/client/index.html');
-});
-
-
-//Connect to Database
-//mongoose.connect('mongodb://admin:iamtheadmin@192.168.2.131:27017/hi5_proto');
-//console.log(mongoose.connection.readyState);
-
-
-//require the same mongo schema
-var UserModel = require('../data-proto/user');
-
-//quick module to create a proper post request
-var createUser = require('./server/user-services/createUser.js');
 
 
 //Client API calls that will be forwarded to the Database
