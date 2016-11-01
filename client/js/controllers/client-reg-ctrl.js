@@ -8,14 +8,14 @@
     //this will then be registered to the module.
     var clientRegController = function ($scope, $http, $log, regService) {
 
-
         $log.debug('client registration controller is here');
 
-
+        //take the data from the form in the UI
         $scope.submitClient = function (companyName, pageUrl, firstName, lastName, email, phone, password) {
 
             $log.debug(companyName, pageUrl, firstName, lastName, email, phone, password);
 
+            //create the JSON body of the user
             var clientRegData = {
                 companyName: regService.inspectData(companyName),
                 pageUrl: regService.inspectData(pageUrl),
@@ -28,20 +28,18 @@
 
             $log.debug(clientRegData);
 
+            //send the request to the server with a POST
             $http({
                 method: 'POST',
                 url: '/api/high-5/create/client',
                 data: clientRegData
 
             }).then(function successCallback(response) {
-
                 $log.debug(response);
             }, function errorCallback(response) {
                 $log.debug('There was an error', response);
-
             });
         }
-
     };
 
     //use the inject service to ensure that is there is minification the injected

@@ -4,15 +4,47 @@
 /**
  * Created by Drew on 2016-08-29.
  */
-
-
+//initialize express
 var express = require('express');
 var app = express();
+
+
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+
 //adding morgan for console logging. Set on dev level
 var morgan = require('morgan');
 app.use(morgan('dev'));
+
+
+//handle file uploads
+var multer = require('multer');
+var upload = multer({dest: './uploads'});
+
+
+//configure sessions
+var session = require('express-session');
+app.use(session({
+    secret: 'secret',
+    saveUninitialized: true,
+    resave: true
+}));
+
+//Passport - the authentication system
+var LocalStrategy = require('passport-local').Strategy;
+var passport = require('passport');
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+//Validator
+
+
+var flash = require('connect-flash');
+var mongo = require('mongodb');
+
+
+var db = mongoose.connection;
 
 
 //use body parser to read JSON bodies and URL encoding
@@ -40,8 +72,8 @@ app.get('/', function (req, res) {
 
 
 //Connect to Database
-mongoose.connect('mongodb://admin:iamtheadmin@192.168.2.131:27017/hi5_proto');
-console.log(mongoose.connection.readyState);
+//mongoose.connect('mongodb://admin:iamtheadmin@192.168.2.131:27017/hi5_proto');
+//console.log(mongoose.connection.readyState);
 
 
 //require the same mongo schema
