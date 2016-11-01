@@ -3,3 +3,4 @@ bower_components
 ./server/models
 .idea
 .gitmodules
+app/models/common
