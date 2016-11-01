@@ -18,6 +18,7 @@ app.use('/assets', express.static(__dirname + '/node_modules'));
 app.use('/js', express.static(__dirname + '/client/js'));
 app.use('/css', express.static(__dirname + '/client/css'));
 app.use('/img', express.static(__dirname + '/client/img'));
+app.use('/fonts', express.static(__dirname + '/client/fonts'));
 
 
 // Connect to Database ==================================================

@@ -79,7 +79,6 @@ module.exports = function (app) {
 
         var testUser = createDefaultUser(req.body);
 
-
         var testUserJson = {
             name: testUser.name,
             firstName: testUser.firstName,
@@ -89,9 +88,7 @@ module.exports = function (app) {
             password: testUser.password,
 
         };
-
         console.log('Data being sent to Mongo: ', testUserJson);
-
         // create a user, information comes from AJAX request from Angular
         User.create(testUserJson, function (err, user) {
             if (err) {

@@ -45,6 +45,10 @@ angularApp.config(function ($routeProvider) {
             templateUrl: 'client/views/user-reg.html',
             controller: 'user-reg-ctrl'
         })
+        .when('/user-profile', {
+            templateUrl: 'client/views/profile.html',
+            controller: 'user-profile-ctrl'
+        })
 });
 
 

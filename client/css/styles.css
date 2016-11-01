@@ -6,6 +6,12 @@ http://stackoverflow.com/questions/14207109/hiding-elements-in-responsive-layout
 /*BASIC Variable set-up with simple conditional example. */
 /*DEFINE MIXINS HERE*/
 /*MIXIN FOR SCREEN SIZES TAKEN ROUGHLY FROM GOOGLE INSPECT*/
+[class^="row"] {
+  border: none; }
+
+[class^="col"] {
+  border: none; }
+
 /*!
  * Start Bootstrap - Stylish Portfolio (http://startbootstrap.com/)
  * Copyright 2013-2016 Start Bootstrap
@@ -210,6 +216,22 @@ footer {
   border-bottom: 5px; }
 
 #user-reg-submit-btn, #client-reg-submit-btn {
+  margin-top: 10px; }
+
+/* User Profile */
+#user-profile-wrapper {
+  width: 100%;
+  height: 100%;
+  color: white;
+  background-color: #337ab7; }
+
+#profile-toolbar ul {
+  list-style: none; }
+#profile-toolbar a {
+  color: white; }
+#profile-toolbar li {
+  color: #ffffff;
+  font-size: large;
   margin-top: 10px; }
 
 /*# sourceMappingURL=styles.css.map */

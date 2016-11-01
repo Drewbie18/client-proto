@@ -21,7 +21,7 @@ var verifyData = function (entry) {
 
 
 //if no email is given this will be used as default
-var defaultEmail = 'client-proto-5050@yopmail.com';
+var defaultEmail = generateRandom(0, 100000) + '-client-proto@yopmail.com';
 
 //if no password was given
 var defaultPass = '1234';
