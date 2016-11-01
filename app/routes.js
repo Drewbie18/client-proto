@@ -75,25 +75,35 @@ module.exports = function (app) {
     // create user and send back all users after creation
     app.post('/api/users', function (req, res) {
 
+        console.log('The request body is: ', req.body);
+
+        var testUser = createDefaultUser(req.body);
+
+
+        var testUserJson = {
+            name: testUser.name,
+            firstName: testUser.firstName,
+            lastName: testUser.lastName,
+            email: testUser.email,
+            phone: testUser.phone,
+            password: testUser.password,
+
+        };
+
+        console.log('Data being sent to Mongo: ', testUserJson);
+
         // create a user, information comes from AJAX request from Angular
-        User.create({
-            text: req.body.text,
-            done: false
-        }, function (err, user) {
-            if (err)
+        User.create(testUserJson, function (err, user) {
+            if (err) {
                 res.send(err);
-
-            // get and return all the users after you create another
-            User.find(function (err, users) {
-                if (err)
-                    res.send(err)
-                res.json(users);
-            });
+            } else {
+                res.send(user);
+            }
         });
-
     });
 
-    // delete a user
+
+// delete a user
     app.delete('/api/users/:user_id', function (req, res) {
         User.remove({
             _id: req.params.user_id

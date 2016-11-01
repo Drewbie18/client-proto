@@ -32,6 +32,7 @@
     "express-messages": "^1.0.1",
     "express-session": "^1.14.2",
     "express-validator": "^2.21.0",
+    "method-override": "^2.3.6",
     "mongodb": "^2.2.11",
     "mongoose": "^4.6.5",
     "morgan": "^1.7.0",

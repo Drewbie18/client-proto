@@ -35,6 +35,8 @@ var defaultLastName = "Doe";
 
 function createUser(data) {
 
+    console.log(data);
+
     var name, firstName, lastName, email, password;
 
     //user name

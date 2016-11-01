@@ -10,12 +10,11 @@
         $log.debug('user registration controller is here');
 
         //get the data that was entered in the UI
-
-
         $scope.submitUser = function (firstName, lastName, userName, email, mobilePhone, password) {
 
             $log.debug(firstName, lastName, userName, email, password);
 
+            //simple change empty string/undefined to '-'
             var userRegData = {
                 firstName: regService.inspectData(firstName),
                 lastName: regService.inspectData(lastName),
@@ -27,18 +26,13 @@
 
             $log.debug(userRegData);
 
-            $http({
-                method: 'POST',
-                url: '/api/users',
-                data: userRegData
-
-            }).then(function successCallback(response) {
-                $log.debug(response);
-            }, function errorCallback(response) {
-                $log.debug('There was an error', response);
-            });
+            regService.create(userRegData)
+                .then(function successCallback(response) {
+                    $log.debug(response);
+                }, function errorCallback(response) {
+                    $log.debug('There was an error', response);
+                });
         }
-
     };
 
     //use the inject service to ensure services are applied after minification

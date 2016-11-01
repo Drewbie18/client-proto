@@ -9,7 +9,7 @@
     // but this returns the object 'factory' that has the method getCustomers
     //so in essense this factory functionality is whatever the method on the  factory object is
     //simpleFactory is merely returning that
-    var regService = function ($log) {
+    var regService = function ($log, $http) {
 
         var factory = {};
 
@@ -24,11 +24,23 @@
 
         };
 
+        factory.get = function () {
+            return $http.get('/api/users');
+        };
+
+        factory.create = function (userData) {
+            return $http.post('/api/users', userData);
+        };
+
+        factory.delete = function (id) {
+            return $http.delete('/api/users/' + id);
+        };
+
         return factory;
     };
 
 
-    regService.$inject = ['$log'];
+    regService.$inject = ['$log', '$http'];
 
     angular.module('angular-app').factory('regService', regService);
 
