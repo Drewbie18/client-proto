@@ -72,6 +72,22 @@ module.exports = function (app) {
         });
     });
 
+
+    // get all users
+    app.get('/api/users/:user_Id', function (req, res) {
+
+        // use mongoose to get all users in the database
+        User.find({_id: req.params.user_Id}, function (err, users) {
+
+            // if there is an error retrieving, send the error. nothing after res.send(err) will execute
+            if (err)
+                res.send(err)
+
+            res.json(users); // return all users in JSON format
+        });
+    });
+
+
     // create user and send back all users after creation
     app.post('/api/users', function (req, res) {
 
