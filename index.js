@@ -61,8 +61,35 @@ var passport = require('passport');
 app.use(passport.initialize());
 app.use(passport.session());
 
-//Validator
+//Validator with express validator
+var expressValidator = require('express-validator');
+app.use(expressValidator({
+    errorFormatter: function (param, msg, value) {
+        var namespace = param.split('.')
+            , root = namespace.shift()
+            , formParam = root;
+
+        while (namespace.length) {
+            formParam += '[' + namespace.shift() + ']';
+        }
+        return {
+            param: formParam,
+            msg: msg,
+            value: value
+        };
+    }
+}));
+
+//Middleware for messages
 var flash = require('connect-flash');
+var expressMessages = require('express-messages');
+app.use(flash());
+app.use(function (req, res, next) {
+    res.locals.messages = expressMessages(req, res);
+    next();
+});
+
+
 var mongo = require('mongodb');
 
 //define port to run client app

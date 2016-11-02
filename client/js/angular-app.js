@@ -49,6 +49,10 @@ angularApp.config(function ($routeProvider) {
             templateUrl: 'client/views/profile.html',
             controller: 'user-profile-ctrl'
         })
+        .when('/user-login', {
+            templateUrl: 'client/views/user-login.html',
+            controller: 'user-login-ctrl'
+        })
 });
 
 

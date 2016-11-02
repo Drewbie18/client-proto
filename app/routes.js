@@ -5,6 +5,7 @@
 var Client = require('./models/common/client');
 var User = require('./models/common/user');
 var createDefaultUser = require('./user-services/createUser'); //if form fields are empty will create default data to send
+var bcrypt = require('bcryptjs'); //for password hashing
 
 
 // API ROUTES =================================================
@@ -91,28 +92,44 @@ module.exports = function (app) {
     // create user and send back all users after creation
     app.post('/api/users', function (req, res) {
 
-        console.log('The request body is: ', req.body);
-
+        //create default user values--for testing
         var testUser = createDefaultUser(req.body);
 
-        var testUserJson = {
-            name: testUser.name,
-            firstName: testUser.firstName,
-            lastName: testUser.lastName,
-            email: testUser.email,
-            phone: testUser.phone,
-            password: testUser.password,
+        //hash the password using bcryptjs
+        bcrypt.genSalt(10, function (err, salt) {
+            bcrypt.hash(testUser.password, salt, function (err, hash) {
 
-        };
-        console.log('Data being sent to Mongo: ', testUserJson);
-        // create a user, information comes from AJAX request from Angular
-        User.create(testUserJson, function (err, user) {
-            if (err) {
-                res.send(err);
-            } else {
-                res.send(user);
-            }
+                //use bcrypt callback to complete the post request to mongo
+                if (err) {
+                    console.log('there was an error hasing', err);
+                    return
+                }
+                //include new hashed password in the JSON body
+                var testUserJson = {
+                    name: testUser.name,
+                    firstName: testUser.firstName,
+                    lastName: testUser.lastName,
+                    email: testUser.email,
+                    phone: testUser.phone,
+                    password: hash
+
+                };
+                console.log('Data being sent to Mongo: ', testUserJson);
+
+                // create a user, information comes from AJAX request from Angular
+                User.create(testUserJson, function (err, user) {
+                    if (err) {
+                        res.send(err);
+                    } else {
+                        console.log(user);
+                        res.send(user);
+                    }
+                });
+
+            });
         });
+
+
     });
 
 

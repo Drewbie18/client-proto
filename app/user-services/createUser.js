@@ -6,7 +6,7 @@
  *
  */
 
-var uuid = require('node-uuid'); //package that will create uuid according RFC 4122
+
 
 //quick function to have some random numbers to create a user
 var generateRandom = function (min, max) {
@@ -34,8 +34,6 @@ var defaultLastName = "Doe";
 
 
 function createUser(data) {
-
-    console.log(data);
 
     var name, firstName, lastName, email, password;
 
@@ -87,8 +85,6 @@ function createUser(data) {
         phone: data.mobilePhone,
         password: password
     };
-
-    console.log('based on the inputs this is the new user', newUser);
 
     return newUser;
 
