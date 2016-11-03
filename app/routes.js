@@ -7,6 +7,7 @@ var User = require('./models/common/user');
 var createDefaultUser = require('./user-services/createUser'); //if form fields are empty will create default data to send
 var bcrypt = require('bcryptjs'); //for password hashing
 var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 
 
 // API ROUTES =================================================
@@ -147,27 +148,5 @@ module.exports = function (app) {
             });
         });
     });
-
-    //User login
-    // create client and send back all clients after creation
-    app.post('/user/login', function (req, res) {
-
-        // create a transaction, information comes from AJAX request from Angular
-        Client.create(req.body, function (err, client) {
-            if (err) res.send(err);
-            else {
-                // get and return all the clients after you create another
-                Client.find(function (err, clients) {
-                    if (err)
-                        res.send(err)
-                    res.json(clients);
-                });
-            }
-        });
-
-    });
-
-
-
 
 }

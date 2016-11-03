@@ -22,7 +22,25 @@
             }, function errorCallback(response) {
                 $log.debug('There was an error', response);
             });
+        };
+
+
+        //test login with dunny data
+        $scope.testLogin = function () {
+
+            var data = {
+                name: 'user-992',
+                password: 1234
+            };
+
+            $http.post('/user/login/local', data).then(function successCallback(response) {
+                $log.debug(response);
+            }, function errorCallback(response) {
+                $log.debug('There was an error', response);
+            });
+
         }
+
     };
     //use the inject service to ensure that is there is minification the injected
     landingController.$inject = ['$scope', '$http', '$log'];

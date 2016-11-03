@@ -47,38 +47,21 @@ app.use(bodyParser.json());
 app.use(bodyParser.json({type: 'application/vnd.api+json'}));
 app.use(bodyParser.urlencoded({extended: true}));
 
-//configure sessions
-var session = require('express-session');
-app.use(session({
+//configure Express session *MUST BE DONE BEFORE PASSPORT SESSION*
+var expressSession = require('express-session');
+
+//TODO what are the options for expression session, should they be configured more?
+app.use(expressSession({
     secret: 'secret',
     saveUninitialized: true,
     resave: true
 }));
 
 //Passport - the authentication system
-var LocalStrategy = require('passport-local').Strategy;
 var passport = require('passport');
 app.use(passport.initialize());
 app.use(passport.session());
 
-//Validator with express validator
-var expressValidator = require('express-validator');
-app.use(expressValidator({
-    errorFormatter: function (param, msg, value) {
-        var namespace = param.split('.')
-            , root = namespace.shift()
-            , formParam = root;
-
-        while (namespace.length) {
-            formParam += '[' + namespace.shift() + ']';
-        }
-        return {
-            param: formParam,
-            msg: msg,
-            value: value
-        };
-    }
-}));
 
 //Middleware for messages
 var flash = require('connect-flash');
@@ -106,6 +89,7 @@ app.get('/api/mongo-connect', function (req, res) {
 
 // routes ==================================================
 require('./app/routes')(app); // configure our routes
+require('./app/userLoginLocal')(app); //configure user login with local strategy
 
 
 app.listen(port);
