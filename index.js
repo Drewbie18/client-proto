@@ -47,6 +47,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.json({type: 'application/vnd.api+json'}));
 app.use(bodyParser.urlencoded({extended: true}));
 
+//Cookie parser for express sessions
+var cookieParser = require('cookie-parser');
+app.use(cookieParser());
+
+
 //configure Express session *MUST BE DONE BEFORE PASSPORT SESSION*
 var expressSession = require('express-session');
 

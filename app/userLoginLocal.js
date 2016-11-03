@@ -15,12 +15,17 @@ module.exports = function (app) {
 //581819d75ae9871cd8051a93
 
     passport.serializeUser(function (user, done) {
-        done(null, user);
+
+        console.log('This is the serialize uservar: ', user);
+        done(null, user[0]._id);
     });
 
     passport.deserializeUser(function (id, done) {
-        User.findById(id, function (err, user) {
-            done(err, user);
+        console.log('This is the deserialize user id var: ', id);
+
+        User.find({_id: id}, function (err, user) {
+            console.log('This is the deserialize user var: ', user);
+            done(err, user[0]._id);
         });
     });
 
@@ -35,7 +40,7 @@ module.exports = function (app) {
 
             User.find({name: name}, function (err, user) {
 
-                console.log(user);
+                console.log('This is the user that was found for local Stratedgy: ', user);
                 if (err) {
                     return done(err);
                 }
