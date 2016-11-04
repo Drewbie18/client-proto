@@ -16,7 +16,7 @@ module.exports = function (app) {
 
     passport.serializeUser(function (user, done) {
 
-        console.log('This is the serialize uservar: ', user);
+        console.log('This is the serialize user var: ', user);
         done(null, user[0]._id);
     });
 
@@ -28,7 +28,6 @@ module.exports = function (app) {
             done(err, user[0]._id);
         });
     });
-
 
     passport.use(new LocalStrategy(
         //passport defaults to looking for username as 'username' we have 'name'
