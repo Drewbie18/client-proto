@@ -30,7 +30,7 @@
 
             var data = {
                 name: 'user-781',
-                password: 'wrong'
+                password: '1234'
             };
 
             $http.post('/user/login/local', data).then(function successCallback(response) {

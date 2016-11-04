@@ -8,7 +8,24 @@
         $log.debug('user-login-controller is here');
 
         $scope.loginUser = function (username, password) {
-            $log.debug('The login button has been pressed');
+
+
+
+                var data = {
+                    name: username,
+                    password: password
+                };
+
+                $http.post('/user/login/local', data).then(function successCallback(response) {
+
+                    $log.debug(response);
+
+                }, function errorCallback(response) {
+
+                    $log.debug('There was an error', response);
+                });
+
+
         }
 
     };

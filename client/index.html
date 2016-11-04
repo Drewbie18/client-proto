@@ -39,7 +39,7 @@
 
 <!-- Navigation -->
 <a id="menu-toggle" href="#" class="btn btn-dark btn-lg toggle"><i class="fa fa-bars"></i></a>
-<nav id="sidebar-wrapper">
+<nav id="sidebar-wrapper" ng-controller="nav-ctrl">
     <ul class="sidebar-nav">
         <a id="menu-close" href="#" class="btn btn-light btn-lg pull-right toggle"><i class="fa fa-times"></i></a>
         <li class="sidebar-brand">
@@ -54,7 +54,7 @@
         <li>
             <a href="#user-reg" onclick=$("#menu-close").click();>User Registration</a>
         </li>
-        <li>
+        <li ng-hide="hide.profile">
             <a href="#user-profile" onclick=$("#menu-close").click();>Profile</a>
         </li>
     </ul>
@@ -96,6 +96,7 @@
 <script src="js/controllers/userRegController.js"></script>
 <script src="js/controllers/userProfileController.js"></script>
 <script src="js/controllers/userLoginController.js"></script>
+<script src="js/controllers/navController.js"></script>
 
 
 <!-- Custom Theme JavaScript -->
