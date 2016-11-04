@@ -12,20 +12,18 @@ var LocalStrategy = require('passport-local').Strategy;
 
 module.exports = function (app) {
 
-//581819d75ae9871cd8051a93
 
     passport.serializeUser(function (user, done) {
-
-        console.log('This is the serialize user var: ', user);
-        done(null, user[0]._id);
+        done(null, user._id);
     });
 
     passport.deserializeUser(function (id, done) {
-        console.log('This is the deserialize user id var: ', id);
 
         User.find({_id: id}, function (err, user) {
-            console.log('This is the deserialize user var: ', user);
-            done(err, user[0]._id);
+            if (Array.isArray(user)) {
+                user = user[0];
+            }
+            done(err, user._id);
         });
     });
 
@@ -37,17 +35,43 @@ module.exports = function (app) {
 
         function (name, password, done) {
 
+            //search the database for the name that was sent in the request
             User.find({name: name}, function (err, user) {
 
+                //mongo returns an array
+                if (Array.isArray(user)) {
+                    user = user[0];
+                }
+
+
                 console.log('This is the user that was found for local Stratedgy: ', user);
+
+                //return is there is an error from the find method
                 if (err) {
                     return done(err);
                 }
-                if (!user) {
+                //if the username returns no results report
+                if (user == undefined) {
+                    console.log('unknown username');
                     return done(null, false, {message: 'Incorrect username.'});
                 }
 
-                return done(null, user);
+                //compare the password hash stored in the DB to the hash of the password provided.
+                bcrypt.compare(password, user.password, function (err, res) {
+
+                    console.log('BCRYPT compare variables: ', password, user.password);
+
+                    //error in hasing
+                    if (err) {
+                        console.log('There was an error comparing the password hashes', err);
+                    } else if (res) {
+                        console.log('password hashes match');
+                        return done(null, user);
+                    }
+                    console.log('passwords do no match', res);
+                    return done(null, false, {message: 'Invalid Password'});
+                });
+
             });
         }
     ));
@@ -66,4 +90,4 @@ module.exports = function (app) {
         });
 
 
-}
+};

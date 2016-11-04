@@ -29,8 +29,8 @@
         $scope.testLogin = function () {
 
             var data = {
-                name: 'user-992',
-                password: 1234
+                name: 'user-781',
+                password: 'wrong'
             };
 
             $http.post('/user/login/local', data).then(function successCallback(response) {
