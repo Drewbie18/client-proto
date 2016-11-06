@@ -10,11 +10,13 @@
         $log.debug('landing-controller is here');
 
         //debugging function to test the mongo connection
-        $scope.testMongo = function () {
+        $scope.testFindSession = function () {
+
+            var sessionId = '3a68fe40-a2f7-11e6-ab3d-f5e7a9215068';
 
             $http({
                 method: 'GET',
-                url: '/api/mongo-connect'
+                url: '/api/session/' + sessionId
 
             }).then(function successCallback(response) {
 
@@ -40,6 +42,23 @@
             });
 
         }
+
+
+        //test login with dunny data
+        $scope.testSession = function () {
+
+            var data = {
+                userId: '5819678294399702846914fa'
+            };
+
+            $http.post('/api/session', data).then(function successCallback(response) {
+                $log.debug(response);
+            }, function errorCallback(response) {
+                $log.debug('There was an error', response);
+            });
+
+        }
+
 
     };
     //use the inject service to ensure that is there is minification the injected

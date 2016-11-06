@@ -20,6 +20,7 @@
     "angular": "^1.5.8",
     "angular-animate": "^1.5.8",
     "angular-bootstrap-npm": "^0.14.3",
+    "angular-cookies": "^1.5.8",
     "angular-route": "^1.5.8",
     "angular-spinner": "^0.8.1",
     "angular-touch": "^1.5.8",
@@ -38,8 +39,10 @@
     "mongoose": "^4.6.5",
     "morgan": "^1.7.0",
     "multer": "^1.2.0",
+    "node-cron": "^1.1.2",
     "node-uuid": "^1.4.7",
     "passport": "^0.3.2",
+    "passport-facebook": "^2.1.1",
     "passport-http": "^0.3.0",
     "passport-local": "^1.0.0",
     "simple-line-icons": "^2.3.2"

@@ -95,6 +95,7 @@ app.get('/api/mongo-connect', function (req, res) {
 // routes ==================================================
 require('./app/routes')(app); // configure our routes
 require('./app/userLoginLocal')(app); //configure user login with local strategy
+require('./app/sessionHandler')(app); //configure user session handling
 
 
 app.listen(port);
