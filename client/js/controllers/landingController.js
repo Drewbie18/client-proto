@@ -48,7 +48,7 @@
         $scope.testSession = function () {
 
             var data = {
-                userId: '5819678294399702846914fa'
+                userId: 'test'
             };
 
             $http.post('/api/session', data).then(function successCallback(response) {

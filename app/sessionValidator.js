@@ -9,14 +9,28 @@ var validateSession = cron.schedule('* * * * *', function () {
     var date = new Date();
     console.log('running task every minute- ' + date.toJSON());
 
-    Session.find(function (err, sessions) {
-        if (err) {
-            console.log(err)
-        }
-        else {
-            console.log(sessions);
+    var sessionCursor = Session.find({}).cursor();
 
+    sessionCursor.on('data', function (sessionDoc) {
+        console.log(sessionDoc.sessionId);
+
+        var currentTime = new Date().getTime();
+        var sessionActiveTime = new Date(sessionDoc.activeDate).getTime();
+
+        var dateDiffInHours = Math.Floor((currentTime - sessionActiveTime) / 100 * 60 * 60);
+
+        if (dateDiffInHours > 24) {
+            console.log('The expiry date has passed for session: ' + sessionDoc.sessionId);
         }
+
+    });
+
+    sessionCursor.on('error', function (err) {
+        console.log('there was an error', err);
+    });
+
+    sessionCursor.on('close', function () {
+        console.log('all sessions have been found');
     });
 
 
