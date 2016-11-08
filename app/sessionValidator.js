@@ -12,17 +12,16 @@ var validateSession = cron.schedule('* * * * *', function () {
     var sessionCursor = Session.find({}).cursor();
 
     sessionCursor.on('data', function (sessionDoc) {
-        console.log(sessionDoc.sessionId);
 
         var currentTime = new Date().getTime();
         var sessionActiveTime = new Date(sessionDoc.activeDate).getTime();
-
-        var dateDiffInHours = Math.Floor((currentTime - sessionActiveTime) / 100 * 60 * 60);
+        var dateDiffInHours = Math.floor((currentTime - sessionActiveTime) / 100 * 60 * 60);
 
         if (dateDiffInHours > 24) {
             console.log('The expiry date has passed for session: ' + sessionDoc.sessionId);
+        } else {
+            console.log('the session has not expired: ', sessionDoc.sessionId);
         }
-
     });
 
     sessionCursor.on('error', function (err) {
