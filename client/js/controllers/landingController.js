@@ -12,9 +12,11 @@
         //debugging function to test the mongo connection
         $scope.testFindSession = function () {
 
+            var sessionId = '4617a640-a623-11e6-83c8-a1f11f1dd9b5';
+
             //var sessionId = '3a68fe40-a2f7-11e6-ab3d-f5e7a9215068';
 
-            var sessionId = 'fake';
+            //var sessionId = 'fake';
 
             $http({
                 method: 'GET',
@@ -50,7 +52,7 @@
         $scope.testSession = function () {
 
             var data = {
-                userId: 'test'
+                userId: 'test2'
             };
 
             $http.post('/api/session', data).then(function successCallback(response) {

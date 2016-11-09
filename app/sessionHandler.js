@@ -53,7 +53,8 @@ module.exports = function (app) {
                     //if the session is found. validate if it is more than 24 hours old
                     var currentTime = new Date().getTime();
                     var sessionActiveTime = new Date(session.activeDate).getTime();
-                    var dateDiffInHours = Math.floor((currentTime - sessionActiveTime) / 100 * 60 * 60);
+                    var dateDiffInHours = Math.floor((currentTime - sessionActiveTime) / (1000 * 60 * 60));
+
 
                     //test if the session is older than 24 hours. If it is return the session is expired
                     //as false.
