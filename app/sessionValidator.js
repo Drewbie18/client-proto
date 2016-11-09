@@ -1,5 +1,8 @@
 /**
  * Created by Drew on 2016-11-05.
+ *
+ * Excluding this file for prototype. The session will be validated at time of session call.
+ *
  */
 var Session = require('./models/common/session');
 var cron = require('node-cron');

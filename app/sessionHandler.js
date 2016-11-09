@@ -39,12 +39,38 @@ module.exports = function (app) {
                 res.send(err);
             }
             else {
-                console.log('session was created successfully', session);
-                res.send(session);
+
+                console.log(session);
+                //find method returns an array.
+                session = session[0];
+
+                //if there was no error but no result, session will be null
+                if (session == null) {
+                    console.log('Session ID not found');
+                    res.status(404).send('No session found');
+                } else {
+
+                    //if the session is found. validate if it is more than 24 hours old
+                    var currentTime = new Date().getTime();
+                    var sessionActiveTime = new Date(session.activeDate).getTime();
+                    var dateDiffInHours = Math.floor((currentTime - sessionActiveTime) / 100 * 60 * 60);
+
+                    //test if the session is older than 24 hours. If it is return the session is expired
+                    //as false.
+                    if (dateDiffInHours > 24) {
+                        //send back 401 unauthorized
+                        console.log('The expiry date has passed for session: ' + session.sessionId);
+                        res.status(401).send('Unauthorized - session has expired')
+
+                    } else {
+                        //send back 200
+                        console.log('the session has not expired: ', session.sessionId);
+                        res.status(200).send('Verified - session is still active');
+                    }
+                }
             }
         });
 
     });
-
 
 };

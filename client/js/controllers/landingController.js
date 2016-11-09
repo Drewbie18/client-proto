@@ -12,7 +12,9 @@
         //debugging function to test the mongo connection
         $scope.testFindSession = function () {
 
-            var sessionId = '3a68fe40-a2f7-11e6-ab3d-f5e7a9215068';
+            //var sessionId = '3a68fe40-a2f7-11e6-ab3d-f5e7a9215068';
+
+            var sessionId = 'fake';
 
             $http({
                 method: 'GET',
