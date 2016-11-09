@@ -12,7 +12,7 @@
  */
 
 
-var angularApp = angular.module('angular-app', ['ngRoute', 'ngAnimate', 'ui.bootstrap']);
+var angularApp = angular.module('angular-app', ['ngRoute', 'ngAnimate', 'ui.bootstrap','ngCookies']);
 
 
 //add logging logic (turn off and on)

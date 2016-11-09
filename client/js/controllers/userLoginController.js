@@ -4,21 +4,22 @@
 
 (function () {
 
-    var userLoginController = function ($scope, $http, $log) {
+    var userLoginController = function ($scope, $http, $log, $cookies) {
         $log.debug('user-login-controller is here');
 
         $scope.loginUser = function (username, password) {
 
+            var data = {
+                name: username,
+                password: password
+            };
 
-
-                var data = {
-                    name: username,
-                    password: password
-                };
-
-                $http.post('/user/login/local', data).then(function successCallback(response) {
-
+            $http.post('/user/login/local', data)
+                .then(function successCallback(response) {
                     $log.debug(response);
+
+
+
 
                 }, function errorCallback(response) {
 
@@ -30,7 +31,7 @@
 
     };
 
-    userLoginController.$inject = ['$scope', '$http', '$log'];
+    userLoginController.$inject = ['$scope', '$http', '$log', '$cookies'];
     //register the controller with the angular module
     angular.module('angular-app').controller('user-login-ctrl', userLoginController);
 }());

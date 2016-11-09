@@ -44,7 +44,7 @@ module.exports = function (app) {
                 }
 
 
-                console.log('This is the user that was found for local Stratedgy: ', user);
+                console.log('This is the user that was found for local Strategy: ', user);
 
                 //return is there is an error from the find method
                 if (err) {
@@ -61,7 +61,7 @@ module.exports = function (app) {
 
                     console.log('BCRYPT compare variables: ', password, user.password);
 
-                    //error in hasing
+                    //error in hashing
                     if (err) {
                         console.log('There was an error comparing the password hashes', err);
                     } else if (res) {
