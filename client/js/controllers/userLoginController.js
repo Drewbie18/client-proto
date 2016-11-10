@@ -4,34 +4,36 @@
 
 (function () {
 
-    var userLoginController = function ($scope, $http, $log, $cookies) {
+    var userLoginController = function ($scope, $http, $log, loginService, authService, regService) {
         $log.debug('user-login-controller is here');
 
-        $scope.loginUser = function (username, password) {
+        regService.hello();
 
-            var data = {
-                name: username,
-                password: password
-            };
+        $scope.login = function (userName, password) {
 
-            $http.post('/user/login/local', data)
-                .then(function successCallback(response) {
-                    $log.debug(response);
+            $log.debug('login button pressed');
 
+            /*
+             var login = loginService.login(userName, password);
 
+             //if login succeeded the status is true, so create a session cookie
+             if (login.status ==true) {
+             authService.createSession(login.userId, authService.createSessionCookie);
 
+             //if login failed log the response
+             } else if(login.status ==false) {
+             $log.debug(login.response);
+             //if the return isn't define there was an error
 
-                }, function errorCallback(response) {
-
-                    $log.debug('There was an error', response);
-                });
-
-
+             }else{
+             $log.debug('login fail', login);
+             }
+             */
         }
 
     };
 
-    userLoginController.$inject = ['$scope', '$http', '$log', '$cookies'];
+    userLoginController.$inject = ['$scope', '$http', '$log', 'loginService', 'authService', 'regService'];
     //register the controller with the angular module
     angular.module('angular-app').controller('user-login-ctrl', userLoginController);
 }());

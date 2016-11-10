@@ -13,6 +13,8 @@ var LocalStrategy = require('passport-local').Strategy;
 module.exports = function (app) {
 
 
+    var userId;
+
     passport.serializeUser(function (user, done) {
         done(null, user._id);
     });
@@ -66,6 +68,8 @@ module.exports = function (app) {
                         console.log('There was an error comparing the password hashes', err);
                     } else if (res) {
                         console.log('password hashes match');
+                        userId = user._id
+
                         return done(null, user);
                     }
                     console.log('passwords do no match', res);
@@ -84,7 +88,13 @@ module.exports = function (app) {
         function (req, res) {
 
             console.log('Login success');
-            res.send('Login Successful');
+
+            var data = {
+                userId: userId,
+                message: 'login success'
+            };
+
+            res.send(data);
 
 
         });

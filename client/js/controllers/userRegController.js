@@ -6,7 +6,6 @@
     //controller logic
     var userRegController = function ($scope, $http, $log, regService) {
 
-
         $log.debug('user registration controller is here');
 
         //get the data that was entered in the UI

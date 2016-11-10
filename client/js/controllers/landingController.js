@@ -65,7 +65,14 @@
             $cookies.put('aCookie2', 'someData2');
 
             var all = $cookies.getAll();
-           $log.debug(all);
+            $log.debug(all);
+
+            var cookie = $cookies.get('aCookie');
+            $log.debug(cookie);
+
+
+            var noCookie = $cookies.get('noCookie');
+            $log.debug(noCookie);
 
 
         }

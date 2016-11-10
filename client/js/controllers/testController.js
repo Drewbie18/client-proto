@@ -16,10 +16,6 @@
             authService.setAuthStatus(false);
         };
 
-
-
-
-
     };
 
     testController.$inject = ['$scope', '$http', '$log', 'authService'];

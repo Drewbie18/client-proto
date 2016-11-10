@@ -5,13 +5,13 @@
 
 (function () {
 
-    //this is the function that is the factory,
-    // but this returns the object 'factory' that has the method getCustomers
-    //so in essense this factory functionality is whatever the method on the  factory object is
-    //simpleFactory is merely returning that
     var regService = function ($log, $http) {
 
         var factory = {};
+
+        factory.hello = function () {
+            $log.debug('hello');
+        };
 
         //see if the data given to the form was undefined
         factory.inspectData = function (data) {
