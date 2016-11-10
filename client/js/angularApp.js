@@ -12,7 +12,7 @@
  */
 
 
-var angularApp = angular.module('angular-app', ['ngRoute', 'ngAnimate', 'ui.bootstrap','ngCookies']);
+var angularApp = angular.module('angular-app', ['ngRoute', 'ngAnimate', 'ui.bootstrap', 'ngCookies']);
 
 
 //add logging logic (turn off and on)
@@ -52,6 +52,10 @@ angularApp.config(function ($routeProvider) {
         .when('/user-login', {
             templateUrl: 'client/views/user-login.html',
             controller: 'user-login-ctrl'
+        })
+        .when('/test', {
+            templateUrl: 'client/views/test-page.html',
+            controller: 'test-ctrl'
         })
 });
 

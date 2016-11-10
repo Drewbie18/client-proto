@@ -36,14 +36,12 @@
                 name: 'user-781',
                 password: '1234'
             };
-
             $http.post('/user/login/local', data).then(function successCallback(response) {
                 $log.debug(response);
             }, function errorCallback(response) {
                 $log.debug('There was an error', response);
             });
-
-        }
+        };
 
 
         //test login with dunny data
