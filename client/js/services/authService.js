@@ -16,6 +16,8 @@
 
         //set the authorized status of the user to true/false
         factory.setAuthStatus = function (status) {
+
+            $log.debug('AUTH STATUS SET TO:', status)
             authStatus = status;
 
         };
@@ -27,41 +29,21 @@
 
 
         //on landing verify if a session cookie exists.
-        factory.verifyCookieExists = function (success, fail) {
+        factory.verifyCookieExists = function () {
             var sessionId = $cookies.get('s');
 
-            if (sessionId == undefined) {
-
-                //if undefined the cookie does no exist.
-                fail();
-
-            } else {
-                //if the cookie exists call the verify session method.
-                success();
-            }
+            return (sessionId == undefined);
         };
 
         //should only be called if cookie exists else this will error
-        factory.verifySession = function (success, fail) {
+        factory.verifySession = function () {
 
             var sessionId = $cookies.get('s');
 
-            $http({
+            return $http({
                 method: 'GET',
                 url: '/api/session/' + sessionId
-            }).then(function successCallback(response) {
-
-                $log.debug('VERIFY SESSION-', response);
-                //if a success set the authorized variable to true
-                success();
-
-            }, function errorCallback(response) {
-
-                $log.debug('VERIFY SESSION- There was an error', response);
-                //if false the session is either expired or does not exist
-                //set the auth variable to false
-                fail();
-            });
+            })
 
         };
 

@@ -38,7 +38,6 @@ module.exports = function (app) {
                 res.send(err);
             }
             else {
-
                 //find method returns an array.
                 session = session[0];
 
@@ -75,7 +74,7 @@ module.exports = function (app) {
                 console.log('There was an error removing all session documents', err);
                 res.status(500).send('ERROR DELETING DOCUMENTS FROM SESSION COLLECTION');
             } else {
-                console.log('All documents successfully deleted from session collection', status);
+                console.log('All documents successfully deleted from session collection', status.result);
                 res.status(200).send('ALL SESSION DOCUMENTS DELETED');
             }
         })
