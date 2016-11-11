@@ -23,27 +23,7 @@
             };
 
             //post to login API
-            $http.post('/user/login/local', data)
-                .then(function successCallback(response) {
-
-                    $log.debug(response);
-
-                    //if returns a success call the create session and send it the userId
-                    return {
-                        userId: response.userId,
-                        status: true
-                    };
-
-                }, function errorCallback(response) {
-
-                    $log.debug('There was an error', response);
-
-                    return {
-                        status: false,
-                        response: response
-                    };
-
-                });
+           return $http.post('/user/login/local', data)
         };
 
         return factory;

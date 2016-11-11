@@ -10,6 +10,7 @@ module.exports = function (app) {
 
     // create a session, append the session to the front end.
     app.post('/api/session', function (req, res) {
+
         var session = {
             sessionId: uuid.v1(),
             userId: req.body.userId
@@ -66,6 +67,20 @@ module.exports = function (app) {
         });
 
     });
+
+
+    app.get('/api/session/delete/all', function (req, res) {
+        Session.remove({}, function (err, status) {
+            if (err) {
+                console.log('There was an error removing all session documents', err);
+                res.status(500).send('ERROR DELETING DOCUMENTS FROM SESSION COLLECTION');
+            } else {
+                console.log('All documents successfully deleted from session collection', status);
+                res.status(200).send('ALL SESSION DOCUMENTS DELETED');
+            }
+        })
+
+    })
 
 
 };

@@ -51,13 +51,13 @@
                 url: '/api/session/' + sessionId
             }).then(function successCallback(response) {
 
-                $log.debug(response);
+                $log.debug('VERIFY SESSION-', response);
                 //if a success set the authorized variable to true
                 success();
 
             }, function errorCallback(response) {
 
-                $log.debug('There was an error', response);
+                $log.debug('VERIFY SESSION- There was an error', response);
                 //if false the session is either expired or does not exist
                 //set the auth variable to false
                 fail();
@@ -66,20 +66,23 @@
         };
 
         //used when user logs in (from login service)
+        //the callback for a success is to create a Session cookie
         factory.createSession = function (userId, next) {
 
-            var data = {data: userId};
+            $log.debug('create Session: ', userId);
+
+            var data = {userId: userId};
 
             //only need to send userId the session uuid will be generated servier side and sent back
             $http.post('/api/session', data)
                 .then(function successCallback(response) {
-                    $log.debug(response);
+                    $log.debug('createSession-', response);
 
                     //if a session is created successfully a session cookie should be created.
-                    next(response);
+                    next(response.data);
 
                 }, function errorCallback(response) {
-                    $log.debug('There was an error', response);
+                    $log.debug('createSession - There was an error', response);
                 });
         };
 

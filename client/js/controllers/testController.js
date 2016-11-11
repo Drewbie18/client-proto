@@ -16,6 +16,23 @@
             authService.setAuthStatus(false);
         };
 
+        $scope.deleteAllSessions = function () {
+            $http({
+                method: 'GET',
+                url: '/api/session/delete/all'
+            }).then(function successCallback(response) {
+
+                $log.debug('DELETE SESSION-', response);
+
+
+            }, function errorCallback(response) {
+
+                $log.debug('DELETE SESSIONS- There was an error', response);
+
+            });
+        }
+
+
     };
 
     testController.$inject = ['$scope', '$http', '$log', 'authService'];

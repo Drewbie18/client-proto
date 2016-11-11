@@ -8,31 +8,41 @@
         $log.debug('user-login-controller is here');
 
         regService.hello();
+        loginService.loginHere();
 
         $scope.login = function (userName, password) {
 
+            $log.debug(userName, password);
+
+            if (userName == undefined || password == undefined) {
+                $log.debug('Username or password is undefined');
+                return;
+            }
+
+
             $log.debug('login button pressed');
 
-            /*
-             var login = loginService.login(userName, password);
 
-             //if login succeeded the status is true, so create a session cookie
-             if (login.status ==true) {
-             authService.createSession(login.userId, authService.createSessionCookie);
+            loginService.login(userName, password)
 
-             //if login failed log the response
-             } else if(login.status ==false) {
-             $log.debug(login.response);
-             //if the return isn't define there was an error
+                .then(function successCallback(response) {
 
-             }else{
-             $log.debug('login fail', login);
-             }
-             */
+                    $log.debug('login success: ', response.data.userId);
+                    authService.createSession(response.data.userId, authService.createSessionCookie);
+
+
+                }, function errorCallback(response) {
+
+                    $log.debug('LOGIN - There was an error', response);
+
+
+                });
+
         }
 
     };
 
+    //make sure the injection args line up with function args
     userLoginController.$inject = ['$scope', '$http', '$log', 'loginService', 'authService', 'regService'];
     //register the controller with the angular module
     angular.module('angular-app').controller('user-login-ctrl', userLoginController);
