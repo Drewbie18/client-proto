@@ -45,9 +45,7 @@ module.exports = function (app) {
                     user = user[0];
                 }
 
-
                 console.log('This is the user that was found for local Strategy: ', user);
-
                 //return is there is an error from the find method
                 if (err) {
                     return done(err);
@@ -93,10 +91,7 @@ module.exports = function (app) {
                 userId: userId,
                 message: 'login success'
             };
-
             res.send(data);
-
-
         });
 
 

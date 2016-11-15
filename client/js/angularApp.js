@@ -56,6 +56,22 @@ angularApp.config(function ($routeProvider) {
 
 });
 
+angularApp.run(function ($rootScope, $location, authService) {
+
+    //routeChangeStart is broadcasted when the route is about to change.
+    $rootScope.$on("$routeChangeStart", function (event, next, current) {
+
+        if (!authService.getAuthStatus()) {
+            //if the user is not logged in and if they were going to the profile page, redirect them to home
+            if (next.templateUrl === "client/views/profile.html") {
+                $location.path("/");
+            }
+        }
+    })
+
+});
+
+//http://fdietz.github.io/recipes-with-angular-js/urls-routing-and-partials/listening-on-route-changes-to-implement-a-login-mechanism.html
 //http://stackoverflow.com/questions/11541695/redirecting-to-a-certain-route-based-on-condition
 
 
