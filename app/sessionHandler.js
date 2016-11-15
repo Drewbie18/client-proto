@@ -52,9 +52,22 @@ module.exports = function (app) {
                     var dateDiffInHours = Math.floor((currentTime - sessionActiveTime) / (1000 * 60 * 60));
 
                     if (dateDiffInHours > 24) {
-                        //send back 401 unauthorized
+
                         console.log('The expiry date has passed for session: ' + session.sessionId);
+
+                        //remove the expired session from the DB.
+                        Session.remove({sessionId: req.params.sessionId}, function (err, status) {
+
+                            if (err) {
+                                console.log('There was an error removing the expired session:', session.sessionId)
+                            } else {
+                                console.log('The expired session was successfully removed from the database');
+                            }
+
+                        });
+                        //send back 401 unauthorized
                         res.status(401).send('Unauthorized - session has expired')
+
 
                     } else {
                         //send back 200

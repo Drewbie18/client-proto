@@ -1,9 +1,6 @@
 /**
  * Created by Drew on 2016-11-09.
  */
-/**
- * Created by Drew on 2016-10-30.
- */
 
 
 (function () {
@@ -32,7 +29,8 @@
         factory.verifyCookieExists = function () {
             var sessionId = $cookies.get('s');
 
-            return (sessionId == undefined);
+            //return true if there is a session Id cookie.
+            return (sessionId != undefined);
         };
 
         //should only be called if cookie exists else this will error
@@ -46,6 +44,34 @@
             })
 
         };
+
+
+        factory.verifySessionCookie = function () {
+
+            var sessionId = $cookies.get('s');
+
+            if (sessionId != undefined) {
+                $http({
+                    method: 'GET',
+                    url: '/api/session/' + sessionId
+                }).then(function successCallback(response) {
+
+                    $log.debug('The Cookie exists and the ssison was verified.', response)
+                    authStatus = true;
+
+
+                }, function errorCallback(response) {
+
+                    $log.debug('Session is expired or does not exist', response);
+
+                    authStatus = false;
+
+                });
+            }
+
+
+        };
+
 
         //used when user logs in (from login service)
         //the callback for a success is to create a Session cookie

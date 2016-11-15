@@ -77,9 +77,6 @@ app.use(function (req, res, next) {
     next();
 });
 
-
-var mongo = require('mongodb');
-
 //define port to run client app
 var port = process.env.port || 5050;
 

@@ -29,6 +29,7 @@
 
                     $log.debug('login success: ', response.data.userId);
                     authService.createSession(response.data.userId, authService.createSessionCookie);
+                    authService.setAuthStatus(true);
 
 
                 }, function errorCallback(response) {

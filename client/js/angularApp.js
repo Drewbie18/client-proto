@@ -2,7 +2,7 @@
  * Created by Drew on 2016-10-27.
  */
 /**
- * Created by Drew on 2016-08-29.
+ * Created by Drew on  2016-10-27.
  * This file will contain the basic angular setup
  *
  *
@@ -14,21 +14,16 @@
 
 var angularApp = angular.module('angular-app', ['ngRoute', 'ngAnimate', 'ui.bootstrap', 'ngCookies']);
 
-
 //add logging logic (turn off and on)
-
-
 angularApp.config(function ($logProvider) {
 
     $logProvider.debugEnabled(true);
 
 });
 
-
 angularApp.config(function ($routeProvider) {
 
     $routeProvider
-
         .when('/', {
             templateUrl: 'client/views/landing.html',
             controller: 'landing-ctrl'
@@ -57,10 +52,11 @@ angularApp.config(function ($routeProvider) {
             templateUrl: 'client/views/test-page.html',
             controller: 'test-ctrl'
         })
+
+
 });
 
-
-
+//http://stackoverflow.com/questions/11541695/redirecting-to-a-certain-route-based-on-condition
 
 
 
