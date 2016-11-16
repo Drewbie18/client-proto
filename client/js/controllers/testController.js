@@ -65,7 +65,7 @@
             }).then(function successCallback(response) {
 
                 $log.debug('This is the auth token test response: ', response.headers());
-                token = response.data;
+                token = response.headers('x-auth');
             }, function errorCallback(response) {
             });
         };
