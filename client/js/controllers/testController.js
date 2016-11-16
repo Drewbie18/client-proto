@@ -54,7 +54,35 @@
                 //if cookie does not exist set auth status to false
                 authService.setAuthStatus(false);
             }
-        }
+        };
+
+        var token;
+
+        $scope.getTestAuthToken = function () {
+            $http({
+                method: 'GET',
+                url: '/api/user/me'
+            }).then(function successCallback(response) {
+
+                $log.debug('This is the auth token test response: ', response.headers());
+                token = response.data;
+            }, function errorCallback(response) {
+            });
+        };
+
+
+        $scope.sendTestAuthToken = function () {
+            $http({
+                method: 'GET',
+                url: '/api/user/token/send',
+                headers: {'x-auth': token}
+            }).then(function successCallback(response) {
+                $log.debug('This is the auth token test response: ', response.data);
+                token = response.data;
+            }, function errorCallback(response) {
+            });
+        };
+
 
     };
 

@@ -24,6 +24,9 @@ var token = jwt.sign(data, 'my-secret');
 console.log('token: ', token);
 
 //takes the token and secret and makes sure the data was not manipulated
-var decoded = jwt.verify(token, 'mysecret');
+var decoded = jwt.verify(token, 'my-secret');
 
-console.log('decoded:', decoded);
+console.log('decoded:', decoded.header);
+
+var date = new Date(decoded.iat);
+console.log(date);
