@@ -33,19 +33,6 @@
             return (sessionId != undefined);
         };
 
-        //should only be called if cookie exists else this will error
-        factory.verifySession = function () {
-
-            var sessionId = $cookies.get('s');
-
-            return $http({
-                method: 'GET',
-                url: '/api/session/' + sessionId
-            })
-
-        };
-
-
         factory.verifySessionCookie = function () {
 
             var sessionId = $cookies.get('s');
@@ -96,10 +83,12 @@
 
 
         //if a new session is created a cookie with the session uuid should be created
-        factory.createSessionCookie = function (sessionToken) {
-            $cookies.put('s', sessionToken.sessionId);
-            $log.debug('cookie with sessionId created: ', sessionToken.sessionId);
+        factory.createTokenCookie = function (token) {
+            $cookies.put('t-5', token);
+            $log.debug('cookie with sessionId created: ', token);
         };
+
+
 
         //if the session stored in the current session cookie is expired it should be deleted
         factory.deleteSessionCookie = function (next) {

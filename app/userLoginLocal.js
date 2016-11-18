@@ -9,6 +9,7 @@ var User = require('./models/common/user');
 var bcrypt = require('bcryptjs'); //to compare passowrd hashes.
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var tokenFactory = require('./auth/tokenFactory');
 
 module.exports = function (app) {
 
@@ -86,12 +87,12 @@ module.exports = function (app) {
         function (req, res) {
 
             console.log('Login success');
+            var token = tokenFactory.generateToken(userId);
 
-            var data = {
-                userId: userId,
-                message: 'login success'
-            };
-            res.send(data);
+            //there was no return value in client is there was no 'send' method applied.
+            res.header('x-auth', token).send('Login Succeeded');
+
+
         });
 
 

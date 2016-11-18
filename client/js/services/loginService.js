@@ -10,10 +10,6 @@
 
         var factory = {};
 
-        factory.loginHere = function () {
-            $log.debug('login service works');
-        };
-
         factory.login = function (username, password) {
 
             //take username and password from UI
