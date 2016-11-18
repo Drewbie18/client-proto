@@ -8,11 +8,33 @@ var tokenFactory = require('./app/auth/tokenFactory');
 
 var token = tokenFactory.generateToken();
 
-tokenFactory.verifyToken(token);
+
+var SHA256 = require('crypto-js/sha256');
+
+var message = 'I am user number something';
+
+var hash = SHA256(message).toString();
+
+console.log(message);
+console.log(hash);
 
 
-var date = (new Date).getTime();
+var jwt = require('jsonwebtoken');
+
+
+//example data object with user ID
+var data = {id: 10};
+
+
+//takes the data object and signs it (hashes it)
+//takes the data and our sercet
+var token = jwt.sign(data, 'my-secret');
+console.log('token: ', token);
+
+//takes the token and secret and makes sure the data was not manipulated
+var decoded = jwt.verify(token, 'my-secret');
+
+console.log('decoded:', decoded.header);
+
+var date = new Date(decoded.iat);
 console.log(date);
-
-
-tokenFactory.verifyToken('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ODIzZWIxMGQ5M2NkNjBhNjRlMmZhMGMiLCJpYXQiOjE0Nzk0MzU5OTMsImV4cCI6MTQ3OTQzNjA1M30.Cqch-G_mc9yH7Ydct3iKn-_LVOIgxXklIH4pBcR-j1c');

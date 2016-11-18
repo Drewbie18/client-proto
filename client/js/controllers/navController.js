@@ -3,7 +3,7 @@
     var navController = function ($scope, $http, $log, $rootScope, authService) {
 
         if (!authService.getAuthStatus()) {
-            authService.verifySessionCookie();
+
         }
 
 

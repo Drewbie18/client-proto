@@ -7,10 +7,13 @@
  * 1. Generate Auth token on successful login
  * 2. Generate refresh token for client
  * 3. Validate refresh token and if verified generate a new auth token
+ *TODO - how to share key between auth server and api server
+ *
+ *
  *
  */
-
 const jwt = require('jsonwebtoken');
+
 
 //create an object and attach methods on it.
 var factory = {};
@@ -20,7 +23,7 @@ factory.generateToken = function (userId, key) {
 
     key = 'secret-key';
 
-    //create JWT data, IAT is appended automatically.
+    //create JWT data, IAT is appended automatically. JWT needs JSON. 
     var data = {
         userId: userId,
     };
@@ -32,6 +35,7 @@ factory.generateToken = function (userId, key) {
 };
 
 //this will verify a token
+//TODO how to handle success and failures of this method to suit all cases.
 factory.verifyToken = function (token, key) {
 
     key = 'secret-key1';
@@ -41,16 +45,13 @@ factory.verifyToken = function (token, key) {
         var decoded = jwt.verify(token, key);
         console.log('This is the decoded token we got back', decoded);
 
-        var expiry = new Date(decoded.exp * 1000);
-        var date = new Date(decoded.iat * 1000);
-        console.log('IAT date returned: ', date);
-        console.log('EXP date returned: ', expiry);
+        return {status: true, info: decoded};
 
-        //
+        //TODO handle different cases of decode errors.
     } catch (decodeError) {
         console.log('There was an error decoding the token', decodeError);
 
-        return decodeError;
+        return {status: false, info: decodeError};
 
     }
 

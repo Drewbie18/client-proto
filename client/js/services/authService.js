@@ -33,14 +33,16 @@
             return (sessionId != undefined);
         };
 
-        factory.verifySessionCookie = function () {
+        //TODO  - should you obfuscate the api route somehow?
+        factory.verifyTokenCookie = function () {
 
-            var sessionId = $cookies.get('s');
+            var token = $cookies.get('t-5');
 
-            if (sessionId != undefined) {
+            if (token != undefined) {
                 $http({
                     method: 'GET',
-                    url: '/api/session/' + sessionId
+                    url: '/api/token/verify',
+                    headers: {'x-auth': token}
                 }).then(function successCallback(response) {
 
                     $log.debug('The Cookie exists and the ssison was verified.', response)
