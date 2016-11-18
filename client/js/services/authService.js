@@ -1,7 +1,8 @@
 /**
  * Created by Drew on 2016-11-09.
+ *
+ * TODO - verify that setting the authStatus variable in a service cannot be exploited.
  */
-
 
 (function () {
 
@@ -25,14 +26,6 @@
         };
 
 
-        //on landing verify if a session cookie exists.
-        factory.verifyCookieExists = function () {
-            var sessionId = $cookies.get('s');
-
-            //return true if there is a session Id cookie.
-            return (sessionId != undefined);
-        };
-
         //TODO  - should you obfuscate the api route somehow?
         factory.verifyTokenCookie = function () {
 
@@ -45,7 +38,7 @@
                     headers: {'x-auth': token}
                 }).then(function successCallback(response) {
 
-                    $log.debug('The Cookie exists and the ssison was verified.', response)
+                    $log.debug('The auth token was verified', response)
                     authStatus = true;
 
 
@@ -56,8 +49,10 @@
                     authStatus = false;
 
                 });
+            } else {
+                $log.debug('VERIFYTOKEN COOKIE  - cookie was undefined, user is not logged in.');
+                authStatus = false;
             }
-
 
         };
 
@@ -91,17 +86,14 @@
         };
 
 
+        //Delete cookie on invalid or user logs out.
+        factory.deleteTokenCookie = function () {
 
-        //if the session stored in the current session cookie is expired it should be deleted
-        factory.deleteSessionCookie = function (next) {
-
-            $cookies.remove('s');
+            $cookies.remove('t-5');
             $log.debug('cookie removed');
         };
-
         return factory;
     };
-
 
     authService.$inject = ['$log', '$http', '$cookies'];
 

@@ -4,6 +4,8 @@
 
         if (!authService.getAuthStatus()) {
 
+            authService.verifyTokenCookie();
+
         }
 
 

@@ -23,7 +23,7 @@ factory.generateToken = function (userId, key) {
 
     key = 'secret-key';
 
-    //create JWT data, IAT is appended automatically. JWT needs JSON. 
+    //create JWT data, IAT is appended automatically. JWT needs JSON.
     var data = {
         userId: userId,
     };
@@ -38,7 +38,7 @@ factory.generateToken = function (userId, key) {
 //TODO how to handle success and failures of this method to suit all cases.
 factory.verifyToken = function (token, key) {
 
-    key = 'secret-key1';
+    key = 'secret-key';
 
     //if there is an error i.e the token is invalid it will be caught.
     try {

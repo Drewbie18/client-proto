@@ -12,10 +12,16 @@ module.exports = function (app) {
 
         var token = req.header('x-auth');
 
-        tokenFactory.verifyToken(token)
+        var verify = tokenFactory.verifyToken(token);
 
+        //if true send the okay status
+        if (verify.status) {
+            res.status(200).send();
+        } else {
+            //if the status returns false send 401 unauthorized
+            res.status(401).send('Token is not valid.');
+        }
 
     });
-
 
 };

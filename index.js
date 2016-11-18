@@ -92,8 +92,8 @@ app.get('/api/mongo-connect', function (req, res) {
 // routes ==================================================
 require('./app/routes')(app); // configure our routes
 require('./app/userLoginLocal')(app); //configure user login with local strategy
-require('./app/sessionHandler')(app); //configure user session handling
 require('./app/test/tokenTest')(app); //test token work flow with client.
+require('./app/auth/tokenHandler')(app); //token verification route
 
 app.listen(port);
 console.log('The Client is running on port:', port);
