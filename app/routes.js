@@ -68,15 +68,15 @@ module.exports = function (app) {
         User.find(function (err, users) {
 
             // if there is an error retrieving, send the error. nothing after res.send(err) will execute
-            if (err)
-                res.send(err)
-
+            if (err) {
+                res.send(err);
+            }
             res.json(users); // return all users in JSON format
         });
     });
 
 
-    // get all users
+    // get a user by ID
     app.get('/api/users/:user_Id', function (req, res) {
 
         // use mongoose to get all users in the database

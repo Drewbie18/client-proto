@@ -45,6 +45,26 @@
         };
 
 
+        $scope.createTestAuthToken = function () {
+            var data = {
+                expiryDate: new Date(Date.now() + (60 * 60)),
+                issuer: 'High-5',
+                siteUrl: 'localhost',
+                state: 'ACTIVE'
+            };
+
+            $http({
+                method: 'POST',
+                url: '/api/local/auth/token',
+                data: data
+            }).then(function successCallback(response) {
+                $log.debug('This is the create auth token test response: ', response.data);
+
+            }, function errorCallback(response) {
+            });
+        };
+
+
     };
 
     testController.$inject = ['$scope', '$http', '$log', 'authService'];
