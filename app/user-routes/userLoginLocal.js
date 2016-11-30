@@ -5,11 +5,11 @@
  *
  */
 //require access to user list
-var User = require('./models/common/user');
+var User = require('../models/common/user');
 var bcrypt = require('bcryptjs'); //to compare passowrd hashes.
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-var tokenFactory = require('./auth/tokenFactory');
+var tokenFactory = require('../auth/tokenFactory');
 
 module.exports = function (app) {
 
