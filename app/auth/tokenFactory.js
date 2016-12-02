@@ -57,5 +57,10 @@ factory.verifyToken = function (token, key) {
 
 };
 
+factory.generateRefreshToken = function (userId, key) {
+
+
+};
+
 
 module.exports = factory;

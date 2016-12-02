@@ -22,10 +22,9 @@ var localAuthTokenSchema = new mongoose.Schema({
     },
     state: {
         type: String,
-        default: 'PENDING_ACTIVATION',
+        default: 'ACTIVE',
         enum: [
 
-            'PENDING_ACTIVATION',
             'ACTIVE',
             'REVOKED',
             'EXPIRED'
