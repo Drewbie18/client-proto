@@ -88,6 +88,7 @@ module.exports = function (app) {
 
             console.log('Login success');
             var token = tokenFactory.generateToken(userId);
+            var refreshToken = tokenFactory.generateRefreshToken(userId)
 
             //there was no return value in client is there was no 'send' method applied.
             res.header('x-auth', token).send('Login Succeeded');

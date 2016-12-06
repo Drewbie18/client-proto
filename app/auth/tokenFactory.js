@@ -14,6 +14,8 @@
  */
 const jwt = require('jsonwebtoken');
 
+const RefreshToken = require('../models/common/authRefreshToken');
+
 
 //create an object and attach methods on it.
 var factory = {};
@@ -57,7 +59,33 @@ factory.verifyToken = function (token, key) {
 
 };
 
+
+//Method to create a refresh token for Users on login.
 factory.generateRefreshToken = function (userId, key) {
+
+    key = 'secret-key';
+
+    //setting expiry date to 10 days in the future (ms*s*mins*hrs*d)
+    var expiryDate = new Date(Date.now() + (1000 * 60 * 60 * 24 * 10));
+
+    var tokenBody = {
+        userId: userId,
+        expiryDate: expiryDate.toJSON(),
+        issuer: 'MVP',
+        siteUrl: 'localhost:5050',
+        state: 'ACTIVE'
+    };
+
+    RefreshToken.create(tokenBody, function (err, refreshToken) {
+        if (err) {
+            console.error('ERROR GENERATING REFRESH TOKEN', err);
+        }
+        else {
+
+            console.log('GENERATED REFRESH TOKEN', refreshToken);
+            return refreshToken
+        }
+    });
 
 
 };
