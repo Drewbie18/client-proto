@@ -1,35 +1,37 @@
 /**
  * Created by Drew on 2016-11-09.
  *
- * */
+ * TODO - verify that setting the authStatus variable in a service cannot be exploited.
+ */
 
 (function () {
 
     var authService = function ($log, $http, $cookies) {
 
-        var self = this;
-
-
+        var factory = {};
         //the authorization status variable that will change, but only by the setAuthStatus method.
         var authStatus = false;
 
         //set the authorized status of the user to true/false
-        this.setAuthStatus = function (status) {
+        factory.setAuthStatus = function (status) {
 
             $log.debug('AUTH STATUS SET TO:', status);
-            self.authStatus = status;
+            authStatus = status;
 
         };
-
-        this.change = function () {
-            self.getAuthStatus();
-        };
-
 
         //allows the app to quickly check the auth status
-        this.getAuthStatus = function () {
-            $log.debug('AUTH STATUS BEING GOTTEN FUCK TO:', authStatus);
+        factory.getAuthStatus = function () {
+            $log.debug('AUTH STATUS SET TO:', authStatus);
             return authStatus;
+        };
+
+
+        factory.change = function () {
+
+            $log.debug('The change function has run');
+            factory.getAuthStatus();
+
         };
 
 
@@ -41,7 +43,7 @@
          * If there is a cookie with a valid auth token this will return true, and set the user as
          * logged in.
          **/
-        this.verifyAuthToken = function () {
+        factory.verifyAuthToken = function () {
 
             var token = $cookies.get('t-5');
 
@@ -81,7 +83,7 @@
          * If there is a cookie with a valid auth token this will return true, and set the user as
          * logged in.
          **/
-        this.verifyRefreshToken = function () {
+        factory.verifyRefreshToken = function () {
 
             var token = $cookies.get('r-5');
 
@@ -99,6 +101,7 @@
                     $log.debug('The refresh token was verified', response);
                     authStatus = true;
                     return true;
+
 
                 }, function errorCallback(response) {
 
@@ -119,7 +122,7 @@
         //the callback for a success is to create a Session cookie
 
 
-        this.createSession = function (userId, next) {
+        factory.createSession = function (userId, next) {
 
             $log.debug('create Session: ', userId);
 
@@ -142,13 +145,13 @@
          *If a new login occurs or a new auth token is given to the user a new cookie will need to
          *saved in local storage
          **/
-        this.createAuthTokenCookie = function (token) {
+        factory.createAuthTokenCookie = function (token) {
             $cookies.put('t-5', token);
             $log.debug('auth token cookie created: ', token);
         };
 
         //Delete cookie on invalid or user logs out.
-        this.deleteAuthTokenCookie = function () {
+        factory.deleteAuthTokenCookie = function () {
 
             $cookies.remove('t-5');
             $log.debug('auth token cookie removed');
@@ -158,19 +161,20 @@
         /**
          *When the user receives a new refresh token it will need to be saved in local storage
          **/
-        this.createRefreshTokenCookie = function (token) {
+        factory.createRefreshTokenCookie = function (token) {
             $cookies.put('r-5', token);
             $log.debug('refresh token cookie created', token);
         };
         //Delete cookie on invalid or user logs out.
-        this.deleteRefreshTokenCookie = function () {
+        factory.deleteRefreshTokenCookie = function () {
 
             $cookies.remove('r-5');
             $log.debug('refresh token cookie removed');
         };
 
-
+        return factory;
     };
+
     authService.$inject = ['$log', '$http', '$cookies'];
 
     angular.module('angular-app').factory('authService', authService);

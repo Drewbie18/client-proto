@@ -65,7 +65,7 @@
         };
 
 
-        $scope.testThis = testService.change;
+        $scope.testThis = authService.change;
 
 
     };

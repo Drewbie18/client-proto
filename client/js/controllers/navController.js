@@ -1,13 +1,13 @@
 /*
-* This will serve the nav/auth controller as it will be active on every page in this iteration
-* of the app.
-*
-* Auth steps
-* 1. check the authorization status of the user
-* 2.
-*
-*
-* */
+ * This will serve the nav/auth controller as it will be active on every page in this iteration
+ * of the app.
+ *
+ * Auth steps
+ * 1. check the authorization status of the user
+ * 2.
+ *
+ *
+ * */
 
 
 (function () {
@@ -20,7 +20,7 @@
             var authToken = authService.verifyAuthToken();
 
             //if there is no auth token or it's expired
-            if(!authToken){
+            if (!authToken) {
 
                 authService.verifyRefreshToken();
 
