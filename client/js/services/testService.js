@@ -1,11 +1,12 @@
 /**
  * Created by Drew on 2016-11-09.
  *
- * */
+ * TODO - verify that setting the authStatus variable in a service cannot be exploited.
+ */
 
 (function () {
 
-    var authService = function ($log, $http, $cookies) {
+    var testService = function ($log, $http, $cookies) {
 
         var self = this;
 
@@ -171,8 +172,9 @@
 
 
     };
-    authService.$inject = ['$log', '$http', '$cookies'];
 
-    angular.module('angular-app').factory('authService', authService);
+    testService.$inject = ['$log', '$http', '$cookies'];
+
+    angular.module('angular-app').service('testService', testService);
 
 }());

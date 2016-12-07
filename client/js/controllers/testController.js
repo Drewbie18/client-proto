@@ -1,6 +1,6 @@
 (function () {
 
-    var testController = function ($scope, $http, $log, authService) {
+    var testController = function ($scope, $http, $log, authService, testService) {
         $log.debug('test-controller is here');
 
 
@@ -65,9 +65,12 @@
         };
 
 
+        $scope.testThis = testService.change;
+
+
     };
 
-    testController.$inject = ['$scope', '$http', '$log', 'authService'];
+    testController.$inject = ['$scope', '$http', '$log', 'authService','testService'];
     //register the controller with the angular module
     angular.module('angular-app').controller('test-ctrl', testController);
 }());

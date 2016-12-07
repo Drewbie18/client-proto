@@ -1,10 +1,30 @@
+/*
+* This will serve the nav/auth controller as it will be active on every page in this iteration
+* of the app.
+*
+* Auth steps
+* 1. check the authorization status of the user
+* 2.
+*
+*
+* */
+
+
 (function () {
 
     var navController = function ($scope, $http, $log, $rootScope, authService) {
 
+        //if the user is not logged in
         if (!authService.getAuthStatus()) {
 
-            authService.verifyTokenCookie();
+            var authToken = authService.verifyAuthToken();
+
+            //if there is no auth token or it's expired
+            if(!authToken){
+
+                authService.verifyRefreshToken();
+
+            }
 
         }
 

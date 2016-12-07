@@ -21,9 +21,8 @@
                     $log.debug(response.headers());
 
                     //on success create cookie with token, set auth status to true
-
                     var token = response.headers('x-auth');
-                    authService.createTokenCookie(token);
+                    authService.createAuthTokenCookie(token);
                     authService.setAuthStatus(true);
 
                 }, function errorCallback(response) {
