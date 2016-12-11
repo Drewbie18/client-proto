@@ -19,11 +19,17 @@
             loginService.login(userName, password)
                 .then(function successCallback(response) {
                     $log.debug(response.headers());
+                    $log.debug(response.data);
 
                     //on success create cookie with token, set auth status to true
                     var token = response.headers('x-auth');
+
+                    //refresh token is in response body.
+                    var refreshToken = response.data.refreshToken;
+
                     authService.createAuthTokenCookie(token);
                     authService.setAuthStatus(true);
+                    authService.createRefreshTokenCookie(refreshToken);
 
                 }, function errorCallback(response) {
 

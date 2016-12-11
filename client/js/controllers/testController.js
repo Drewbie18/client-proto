@@ -65,12 +65,12 @@
         };
 
 
-        $scope.testThis = authService.change;
+        $scope.testRefreshToken = authService.verifyRefreshToken;
 
 
     };
 
-    testController.$inject = ['$scope', '$http', '$log', 'authService','testService'];
+    testController.$inject = ['$scope', '$http', '$log', 'authService', 'testService'];
     //register the controller with the angular module
     angular.module('angular-app').controller('test-ctrl', testController);
 }());

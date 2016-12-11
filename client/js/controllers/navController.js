@@ -17,19 +17,10 @@
         //if the user is not logged in
         if (!authService.getAuthStatus()) {
 
-            var authToken = authService.verifyAuthToken();
-
-            //if there is no auth token or it's expired
-            if (!authToken) {
-
-                authService.verifyRefreshToken();
-
-            }
-
+            $log.debug('NAV Controller - running the verifyAuthToken');
+            authService.verifyAuthToken();
         }
 
-
-        $log.debug('nav-controller is here');
     };
 
     navController.$inject = ['$scope', '$http', '$log', '$rootScope', 'authService'];

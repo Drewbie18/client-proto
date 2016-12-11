@@ -43,7 +43,7 @@
          * If there is a cookie with a valid auth token this will return true, and set the user as
          * logged in.
          **/
-        factory.verifyAuthToken = function () {
+        factory.verifyAuthToken = function (next) {
 
             var token = $cookies.get('t-5');
 
@@ -56,21 +56,18 @@
 
                     $log.debug('The auth token was verified', response);
                     authStatus = true;
-                    return true;
-
 
                 }, function errorCallback(response) {
 
                     $log.debug('Auth token is not valid', response);
-
                     authStatus = false;
-                    return false;
+                    factory.verifyRefreshToken();
 
                 });
             } else {
                 $log.debug('VERIFY TOKEN COOKIE  - cookie was undefined, user is not logged in.');
                 authStatus = false;
-                return false;
+                factory.verifyRefreshToken();
             }
 
         };
@@ -87,6 +84,9 @@
 
             var token = $cookies.get('r-5');
 
+
+            $log.debug('This is the refresh token cookie', token);
+
             var data = {
                 refreshToken: token
             };
@@ -94,7 +94,7 @@
             if (token != undefined) {
                 $http({
                     method: 'POST',
-                    url: '/api/token/verify',
+                    url: '/api/refresh/verify',
                     data: data
                 }).then(function successCallback(response) {
 

@@ -13,8 +13,9 @@
  *
  */
 const jwt = require('jsonwebtoken');
-
 const RefreshToken = require('../models/common/authRefreshToken');
+const async = require('async');
+const CryptoJS = require('crypto-js');
 
 
 //create an object and attach methods on it.
@@ -27,7 +28,7 @@ factory.generateToken = function (userId, key) {
 
     //create JWT data, IAT is appended automatically. JWT needs JSON.
     var data = {
-        userId: userId,
+        userId: userId
     };
 
     var token = jwt.sign(data, key, {expiresIn: '6h'});
@@ -76,9 +77,11 @@ factory.generateRefreshToken = function (userId, key) {
         state: 'ACTIVE'
     };
 
-    RefreshToken.create(tokenBody, function (err, refreshToken) {
+    //return the creation object.
+    return RefreshToken.create(tokenBody, function (err, refreshToken) {
         if (err) {
             console.error('ERROR GENERATING REFRESH TOKEN', err);
+            return null;
         }
         else {
 
@@ -87,6 +90,65 @@ factory.generateRefreshToken = function (userId, key) {
         }
     });
 
+
+};
+
+//TODO FIX DATE COMPARISION
+//Method to verify encrypted refresh token from client side.
+factory.verifyRefreshToken = function (refreshToken, key) {
+
+    var verifyResult;
+
+    async.waterfall([
+        //decrpyt the token
+        function (callback) {
+
+            var decrypt = CryptoJS.AES.decrypt(refreshToken, key);
+            var refreshId = decrypt.toString(CryptoJS.enc.Utf8);
+
+            console.log('verifyRefreshToken - refreshId', refreshId);
+
+            callback(null, refreshId);
+
+        },
+        //find the refresh token in DB
+        function (arg1, callback) {
+            RefreshToken.find({_id: arg1}, function (err, refreshToken) {
+                if (err) {
+                    callback(null, err);
+                } else {
+                    console.log('verifyRefreshToken - refreshToken', refreshToken);
+                    callback(null, refreshToken);
+                }
+
+            });
+
+        },
+        //verify that token is active and not expired
+        function (arg1, callback) {
+
+            var currentDate = new Date();
+            var expiryDate = new Date(arg1.expiryDate);
+            console.log('verifyRefreshToken - currentDate', currentDate.getTime());
+            console.log('verifyRefreshToken - expiryDate', expiryDate.getTime());
+
+            if (arg1.state !== 'ACTIVE') {
+                console.log('The refresh token is not active');
+                callback(null, false);
+            } else if (expiryDate.getTime() < currentDate.getTime()) {
+                console.log('the token is expired');
+                callback(null, false);
+            } else {
+                callback(null, true);
+            }
+        }
+    ], function (err, result) {
+
+        verifyResult = result;
+
+    });
+
+    return verifyResult;
 
 };
 

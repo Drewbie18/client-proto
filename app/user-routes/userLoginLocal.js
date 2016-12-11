@@ -10,6 +10,9 @@ var bcrypt = require('bcryptjs'); //to compare passowrd hashes.
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var tokenFactory = require('../auth/tokenFactory');
+var async = require('async');
+const RefreshToken = require('../models/common/authRefreshToken');
+const CryptoJS = require('crypto-js');
 
 module.exports = function (app) {
 
@@ -67,7 +70,7 @@ module.exports = function (app) {
                         console.log('There was an error comparing the password hashes', err);
                     } else if (res) {
                         console.log('password hashes match');
-                        userId = user._id
+                        userId = user._id;
 
                         return done(null, user);
                     }
@@ -86,13 +89,62 @@ module.exports = function (app) {
         //if this function is called the user was authenticated. If not passport will return a 401 Unauthorized
         function (req, res) {
 
-            console.log('Login success');
-            var token = tokenFactory.generateToken(userId);
-            var refreshToken = tokenFactory.generateRefreshToken(userId)
+            console.log('Login success, generating tokens for user.');
 
-            //there was no return value in client is there was no 'send' method applied.
-            res.header('x-auth', token).send('Login Succeeded');
+            //generate Auth token synchronously
+            var authToken = tokenFactory.generateToken(userId);
+            var key = 'secret-key';
 
+            //generate and encrypt refreshToken via async waterFall
+            async.waterfall([
+                function (callback) {
+
+
+                    //setting expiry date to 10 days in the future (ms*s*mins*hrs*d)
+                    var expiryDate = new Date(Date.now() + (1000 * 60 * 60 * 24 * 10));
+
+                    var tokenBody = {
+                        userId: userId,
+                        expiryDate: expiryDate.toJSON(),
+                        issuer: 'MVP',
+                        siteUrl: 'localhost:5050',
+                        state: 'ACTIVE'
+                    };
+
+                    //return the creation object.
+                    RefreshToken.create(tokenBody, function (err, refreshToken) {
+                        if (err) {
+                            console.error('ERROR GENERATING REFRESH TOKEN', err);
+                            callback(null, null);
+                        }
+                        else {
+
+                            console.log('GENERATED REFRESH TOKEN', refreshToken);
+                            console.log('REFRESH TOKEN FOUND ID', refreshToken._id);
+
+                            callback(null, refreshToken._id.toString());
+                        }
+                    });
+
+                },
+                function (arg1, callback) {
+
+                    var cipherObj = CryptoJS.AES.encrypt(arg1, key);
+                    console.log(cipherObj);
+                    var cipherString = cipherObj.toString();
+                    console.log('The encrypted refreshToken: ', cipherString);
+                    callback(null, cipherString);
+
+                }
+            ], function (err, results) {
+                console.log('This is the results object:', results);
+
+                var successResponse = {
+                    message: 'Login Succeeded',
+                    refreshToken: results
+                };
+                res.header('x-auth', authToken).send(successResponse);
+            })
 
         });
 
