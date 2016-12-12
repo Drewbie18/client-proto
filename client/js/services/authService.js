@@ -43,7 +43,7 @@
          * If there is a cookie with a valid auth token this will return true, and set the user as
          * logged in.
          **/
-        factory.verifyAuthToken = function (next) {
+        factory.verifyAuthToken = function () {
 
             var token = $cookies.get('t-5');
 

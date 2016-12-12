@@ -99,7 +99,6 @@ module.exports = function (app) {
             async.waterfall([
                 function (callback) {
 
-
                     //setting expiry date to 10 days in the future (ms*s*mins*hrs*d)
                     var expiryDate = new Date(Date.now() + (1000 * 60 * 60 * 24 * 10));
 
@@ -118,14 +117,10 @@ module.exports = function (app) {
                             callback(null, null);
                         }
                         else {
-
-                            console.log('GENERATED REFRESH TOKEN', refreshToken);
-                            console.log('REFRESH TOKEN FOUND ID', refreshToken._id);
-
+                            console.log('CREATED REFRESH TOKEN ID', refreshToken._id);
                             callback(null, refreshToken._id.toString());
                         }
                     });
-
                 },
                 function (arg1, callback) {
 

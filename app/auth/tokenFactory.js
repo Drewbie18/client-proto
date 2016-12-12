@@ -95,11 +95,10 @@ factory.generateRefreshToken = function (userId, key) {
 
 //TODO FIX DATE COMPARISION
 //Method to verify encrypted refresh token from client side.
-factory.verifyRefreshToken = function (refreshToken, key) {
+factory.verifyRefreshToken = function (refreshToken, key, response) {
 
-    var verifyResult;
 
-    async.waterfall([
+    return async.waterfall([
         //decrpyt the token
         function (callback) {
 
@@ -118,7 +117,7 @@ factory.verifyRefreshToken = function (refreshToken, key) {
                     callback(null, err);
                 } else {
                     console.log('verifyRefreshToken - refreshToken', refreshToken);
-                    callback(null, refreshToken);
+                    callback(null, refreshToken[0]);
                 }
 
             });
@@ -129,8 +128,6 @@ factory.verifyRefreshToken = function (refreshToken, key) {
 
             var currentDate = new Date();
             var expiryDate = new Date(arg1.expiryDate);
-            console.log('verifyRefreshToken - currentDate', currentDate.getTime());
-            console.log('verifyRefreshToken - expiryDate', expiryDate.getTime());
 
             if (arg1.state !== 'ACTIVE') {
                 console.log('The refresh token is not active');
@@ -139,16 +136,17 @@ factory.verifyRefreshToken = function (refreshToken, key) {
                 console.log('the token is expired');
                 callback(null, false);
             } else {
+
+                console.log('the token is ACTIVE and not expired');
                 callback(null, true);
             }
         }
     ], function (err, result) {
 
-        verifyResult = result;
+        response(result);
 
     });
 
-    return verifyResult;
 
 };
 
