@@ -62,34 +62,57 @@ factory.verifyToken = function (token, key) {
 
 
 //Method to create a refresh token for Users on login.
-factory.generateRefreshToken = function (userId, key) {
+factory.generateRefreshToken = function (userId, key, sendResult) {
 
-    key = 'secret-key';
 
-    //setting expiry date to 10 days in the future (ms*s*mins*hrs*d)
-    var expiryDate = new Date(Date.now() + (1000 * 60 * 60 * 24 * 10));
+    //generate and encrypt refreshToken via async waterFall
+    return async.waterfall([
+        function (callback) {
 
-    var tokenBody = {
-        userId: userId,
-        expiryDate: expiryDate.toJSON(),
-        issuer: 'MVP',
-        siteUrl: 'localhost:5050',
-        state: 'ACTIVE'
-    };
+            //setting expiry date to 10 days in the future (ms*s*mins*hrs*d)
+            var expiryDate = new Date(Date.now() + (1000 * 60 * 60 * 24 * 10));
 
-    //return the creation object.
-    return RefreshToken.create(tokenBody, function (err, refreshToken) {
-        if (err) {
-            console.error('ERROR GENERATING REFRESH TOKEN', err);
-            return null;
+            var tokenBody = {
+                userId: userId,
+                expiryDate: expiryDate.toJSON(),
+                issuer: 'MVP',
+                siteUrl: 'localhost:5050',
+                state: 'ACTIVE'
+            };
+
+            //return the creation object.
+            RefreshToken.create(tokenBody, function (err, refreshToken) {
+                if (err) {
+                    console.error('ERROR GENERATING REFRESH TOKEN', err);
+                    callback(null, null);
+                }
+                else {
+                    console.log('CREATED REFRESH TOKEN ID', refreshToken._id);
+                    callback(null, refreshToken._id.toString());
+                }
+            });
+        },
+        function (arg1, callback) {
+
+            var cipherObj = CryptoJS.AES.encrypt(arg1, key);
+            console.log(cipherObj);
+            var cipherString = cipherObj.toString();
+            console.log('The encrypted refreshToken: ', cipherString);
+            callback(null, cipherString);
+
         }
-        else {
+    ], function (err, results) {
+        console.log('This is the results object:', results);
 
-            console.log('GENERATED REFRESH TOKEN', refreshToken);
-            return refreshToken
-        }
-    });
+        var successResponse = {
+            message: 'Login Succeeded',
+            refreshToken: results
+        };
 
+        sendResult(successResponse);
+
+
+    })
 
 };
 

@@ -16,7 +16,6 @@ const CryptoJS = require('crypto-js');
 
 module.exports = function (app) {
 
-
     var userId;
 
     passport.serializeUser(function (user, done) {
@@ -95,51 +94,19 @@ module.exports = function (app) {
             var authToken = tokenFactory.generateToken(userId);
             var key = 'secret-key';
 
-            //generate and encrypt refreshToken via async waterFall
-            async.waterfall([
-                function (callback) {
-
-                    //setting expiry date to 10 days in the future (ms*s*mins*hrs*d)
-                    var expiryDate = new Date(Date.now() + (1000 * 60 * 60 * 24 * 10));
-
-                    var tokenBody = {
-                        userId: userId,
-                        expiryDate: expiryDate.toJSON(),
-                        issuer: 'MVP',
-                        siteUrl: 'localhost:5050',
-                        state: 'ACTIVE'
-                    };
-
-                    //return the creation object.
-                    RefreshToken.create(tokenBody, function (err, refreshToken) {
-                        if (err) {
-                            console.error('ERROR GENERATING REFRESH TOKEN', err);
-                            callback(null, null);
-                        }
-                        else {
-                            console.log('CREATED REFRESH TOKEN ID', refreshToken._id);
-                            callback(null, refreshToken._id.toString());
-                        }
-                    });
-                },
-                function (arg1, callback) {
-
-                    var cipherObj = CryptoJS.AES.encrypt(arg1, key);
-                    console.log(cipherObj);
-                    var cipherString = cipherObj.toString();
-                    console.log('The encrypted refreshToken: ', cipherString);
-                    callback(null, cipherString);
-
+            function sendResult(successResponse) {
+                //if true send the okay status, if there was an error this would be undefined or null
+                if (successResponse.refreshToken) {
+                    res.header('x-auth', authToken).send(successResponse);
+                } else {
+                    //if the status returns false send 401 unauthorized
+                    res.status(401).send('Token is not valid.');
                 }
-            ], function (err, results) {
-                console.log('This is the results object:', results);
+            };
 
-                var successResponse = {
-                    message: 'Login Succeeded',
-                    refreshToken: results
-                };
-                res.header('x-auth', authToken).send(successResponse);
-            })
+            //generate and encrypt refreshToken via async waterFall
+            tokenFactory.generateRefreshToken(userId, key, sendResult);
+
 
         });
 
