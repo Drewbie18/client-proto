@@ -116,10 +116,8 @@ factory.generateRefreshToken = function (userId, key, sendResult) {
 
 };
 
-//TODO FIX DATE COMPARISION
 //Method to verify encrypted refresh token from client side.
 factory.verifyRefreshToken = function (refreshToken, key, response) {
-
 
     return async.waterfall([
         //decrpyt the token
@@ -165,8 +163,38 @@ factory.verifyRefreshToken = function (refreshToken, key, response) {
             }
         }
     ], function (err, result) {
-
         response(result);
+
+    });
+};
+
+factory.deleteRefreshToken = function (refreshToken, key, response) {
+
+
+    return async.waterfall([
+        //decrpyt the token
+        function (callback) {
+            var decrypt = CryptoJS.AES.decrypt(refreshToken, key);
+            var refreshId = decrypt.toString(CryptoJS.enc.Utf8);
+
+            console.log('deleteRefreshToken - refreshId', refreshId);
+            callback(null, refreshId);
+        },
+        //find and remove refresh token in DB
+        function (arg1, callback) {
+            RefreshToken.remove({_id: arg1}, function (err, refreshToken) {
+                if (err) {
+                    callback(null, err);
+                } else {
+                    console.log('verifyRefreshToken - refreshToken', refreshToken);
+                    callback(null, refreshToken[0]);
+                }
+            });
+
+        }], function (err, result) {
+
+        response();
+
 
     });
 

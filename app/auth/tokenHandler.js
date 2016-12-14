@@ -47,5 +47,13 @@ module.exports = function (app) {
 
     });
 
+    app.get('api/token/refresh/delete', function(req, res){
+
+
+
+
+        }
+    )
+
 
 };
