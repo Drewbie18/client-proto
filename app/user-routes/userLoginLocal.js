@@ -89,7 +89,6 @@ module.exports = function (app) {
         function (req, res) {
 
             console.log('Login success, generating tokens for user.');
-
             //generate Auth token synchronously
             var authToken = tokenFactory.generateToken(userId);
             var key = 'secret-key';
@@ -103,10 +102,8 @@ module.exports = function (app) {
                     res.status(401).send('Token is not valid.');
                 }
             };
-
             //generate and encrypt refreshToken via async waterFall
             tokenFactory.generateRefreshToken(userId, key, sendResult);
-
 
         });
 
