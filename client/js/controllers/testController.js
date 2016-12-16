@@ -68,6 +68,26 @@
         $scope.testRefreshToken = authService.verifyRefreshToken;
 
 
+        $scope.deleteRefreshToken = function () {
+            var token = authService.getRefreshToken();
+
+            data = {refreshToken: token};
+
+            $http({
+                method: 'PUT',
+                url: '/api/token/refresh/delete',
+                data: data
+            }).then(function successCallback(response) {
+                $log.debug('This is the auth token test response: ', response.data);
+
+            }, function errorCallback(response) {
+
+                $log.debug('there was an error', response);
+            });
+
+
+        }
+
     };
 
     testController.$inject = ['$scope', '$http', '$log', 'authService', 'testService'];

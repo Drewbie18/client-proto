@@ -120,8 +120,6 @@
 
         //used when user logs in (from login service)
         //the callback for a success is to create a Session cookie
-
-
         factory.createSession = function (userId, next) {
 
             $log.debug('create Session: ', userId);
@@ -175,6 +173,14 @@
             $cookies.remove('r-5');
             $log.debug('refresh token cookie removed');
         };
+
+
+        factory.getRefreshToken = function () {
+            var token = $cookies.get('r-5');
+            $log.debug('the is the token', token);
+            return token;
+        };
+
 
         return factory;
     };

@@ -47,13 +47,27 @@ module.exports = function (app) {
 
     });
 
-    app.get('api/token/refresh/delete', function(req, res){
+    app.put('/api/token/refresh/delete', function (req, res) {
+
+        var key = 'secret-key';
 
 
+        function sendResult(result) {
+            //if true send the okay status
+            if (result) {
+                res.status(200).send("SUCCESS");
+            } else {
+                //if the status returns false send 401 unauthorized
+                res.status(401).send('Token is not valid.');
+            }
+        };
+
+        var refreshToken = req.body.refreshToken;
+        console.log('REFRESH TOKEN TO DELETE', refreshToken);
+        tokenFactory.deleteRefreshToken(refreshToken, key, sendResult);
 
 
-        }
-    )
+    });
 
 
 };

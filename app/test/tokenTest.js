@@ -49,7 +49,6 @@ module.exports = function (app) {
 
         console.log(clientToken);
 
-
         try {
             var decoded = jwt.verify(clientToken, 'secret-key');
             console.log('This is the decoded token we got back', decoded);

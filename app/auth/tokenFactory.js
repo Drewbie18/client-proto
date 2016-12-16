@@ -186,16 +186,13 @@ factory.deleteRefreshToken = function (refreshToken, key, response) {
                 if (err) {
                     callback(null, err);
                 } else {
-                    console.log('verifyRefreshToken - refreshToken', refreshToken);
-                    callback(null, refreshToken[0]);
+                    console.log('deleteRefreshToken - refreshToken', refreshToken);
+                    callback(null, true);
                 }
             });
 
         }], function (err, result) {
-
-        response();
-
-
+        response(result);
     });
 
 
