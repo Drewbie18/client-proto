@@ -146,25 +146,29 @@
          *saved in local storage
          **/
         factory.createAuthTokenCookie = function (token) {
-            $cookies.put('t-5', token);
+
+            //refresh expires in one day
+            var expiryDate = new Date(Date.now() + (1000 * 60 * 60 * 24));
+            $cookies.put('t-5', token, {expires: expiryDate});
             $log.debug('auth token cookie created: ', token);
         };
 
         //Delete cookie on invalid or user logs out.
         factory.deleteAuthTokenCookie = function () {
-
             $cookies.remove('t-5');
             $log.debug('auth token cookie removed');
         };
-
 
         /**
          *When the user receives a new refresh token it will need to be saved in local storage
          **/
         factory.createRefreshTokenCookie = function (token) {
-            $cookies.put('r-5', token);
+            //refresh expires in one year.
+            var expiryDate = new Date(Date.now() + (1000 * 60 * 60 * 24 * 365));
+            $cookies.put('r-5', token, {expires: expiryDate});
             $log.debug('refresh token cookie created', token);
         };
+
         //Delete cookie on invalid or user logs out.
         factory.deleteRefreshTokenCookie = function () {
 
