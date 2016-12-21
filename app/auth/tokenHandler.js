@@ -28,13 +28,13 @@ module.exports = function (app) {
     //allow the client to quickly verify if the auth token is still valid on landing
     app.post('/api/refresh/verify', function (req, res) {
 
-        function sendResult(result) {
+        function sendResult(result, message) {
             //if true send the okay status
             if (result) {
-                res.status(200).send();
+                res.status(200).send(message);
             } else {
                 //if the status returns false send 401 unauthorized
-                res.status(401).send('Token is not valid.');
+                res.status(401).send(message);
             }
         };
 

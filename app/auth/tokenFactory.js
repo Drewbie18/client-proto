@@ -147,29 +147,32 @@ factory.verifyRefreshToken = function (refreshToken, key, response) {
         //verify that token is active and not expired
         function (arg1, callback) {
 
-            var currentDate = new Date();
-            var expiryDate = new Date(arg1.expiryDate);
-
-            if (arg1.state !== 'ACTIVE') {
-                console.log('The refresh token is not active');
-                callback(null, false);
-            } else if (expiryDate.getTime() < currentDate.getTime()) {
-                console.log('the token is expired');
-                callback(null, false);
+            //if the result is an empty array the token does not exist in the DB.
+            if (arg1 === undefined) {
+                callback(null, false, 'Token does not exist');
             } else {
+                var currentDate = new Date();
+                var expiryDate = new Date(arg1.expiryDate);
 
-                console.log('the token is ACTIVE and not expired');
-                callback(null, true);
+                if (arg1.state !== 'ACTIVE') {
+                    console.log('The refresh token is not active');
+                    callback(null, false, 'The refresh token is not active');
+                } else if (expiryDate.getTime() < currentDate.getTime()) {
+                    console.log('the token is expired');
+                    callback(null, false, 'the token is expired');
+                } else {
+                    console.log('the token is ACTIVE and not expired');
+                    callback(null, true, 'the token is ACTIVE and not expired');
+                }
             }
         }
-    ], function (err, result) {
-        response(result);
+    ], function (err, result, message) {
+        response(result, message);
 
     });
 };
 
 factory.deleteRefreshToken = function (refreshToken, key, response) {
-
 
     return async.waterfall([
         //decrpyt the token

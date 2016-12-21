@@ -1,7 +1,4 @@
 /**
- * Created by Drew on 2016-10-27.
- */
-/**
  * Created by Drew on  2016-10-27.
  * This file will contain the basic angular setup
  *
@@ -10,7 +7,6 @@
  * we are also injecting any modules that we are dependent on-> ngRoute and all other kinds
  *
  */
-
 
 var angularApp = angular.module('angular-app', ['ngRoute', 'ngAnimate', 'ui.bootstrap', 'ngCookies']);
 

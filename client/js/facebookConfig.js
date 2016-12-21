@@ -1,7 +1,7 @@
 /**
  * Created by Drew on 2016-11-23.
  */
-
+/*
 window.fbAsyncInit = function() {
     FB.init({
         appId      : '1321078801257340',
@@ -17,3 +17,4 @@ window.fbAsyncInit = function() {
     js.src = "//connect.facebook.net/en_US/sdk.js";
     fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
+*/

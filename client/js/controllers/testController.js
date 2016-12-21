@@ -1,7 +1,12 @@
 (function () {
 
-    var testController = function ($scope, $http, $log, authService, testService) {
+    var testController = function ($scope, $http, $log, authService, testService, facebookAuth) {
         $log.debug('test-controller is here');
+
+
+        $scope.$on('$viewContentLoaded', facebookAuth.fbAsyncInit);
+
+        $scope.facebookAuth = facebookAuth.fbAsyncInit;
 
 
         $scope.checkStatus = function () {
@@ -90,7 +95,7 @@
 
     };
 
-    testController.$inject = ['$scope', '$http', '$log', 'authService', 'testService'];
+    testController.$inject = ['$scope', '$http', '$log', 'authService', 'testService', 'facebookAuth'];
     //register the controller with the angular module
     angular.module('angular-app').controller('test-ctrl', testController);
 }());
