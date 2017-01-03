@@ -108,12 +108,8 @@ factory.generateRefreshToken = function (userId, key, sendResult) {
             message: 'Login Succeeded',
             refreshToken: results
         };
-
         sendResult(successResponse);
-
-
     })
-
 };
 
 //Method to verify encrypted refresh token from client side.
@@ -127,7 +123,6 @@ factory.verifyRefreshToken = function (refreshToken, key, response) {
             var refreshId = decrypt.toString(CryptoJS.enc.Utf8);
 
             console.log('verifyRefreshToken - refreshId', refreshId);
-
             callback(null, refreshId);
 
         },

@@ -41,16 +41,13 @@ module.exports = function (app) {
         var key = 'secret-key';
         var refreshToken = req.body.refreshToken;
         console.log('REFRESH TOKEN FROM FRONT', refreshToken);
-
         tokenFactory.verifyRefreshToken(refreshToken, key, sendResult);
-
 
     });
 
     app.put('/api/token/refresh/delete', function (req, res) {
 
         var key = 'secret-key';
-
 
         function sendResult(result) {
             //if true send the okay status
