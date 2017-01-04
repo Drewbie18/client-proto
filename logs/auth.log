@@ -2,3 +2,6 @@
 [2017-01-03 22:34:35.996] [INFO] auth - { userId: '5823eb10d93cd60a64e2fa0c',
   iat: 1483499058,
   exp: 1483520658 }
+[2017-01-03 22:40:02.179] [INFO] auth - This is the decoded token we got back { userId: '5823eb10d93cd60a64e2fa0c',
+  iat: 1483499058,
+  exp: 1483520658 }

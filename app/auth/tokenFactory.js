@@ -48,7 +48,7 @@ factory.verifyToken = function (token, key) {
     //if there is an error i.e the token is invalid it will be caught.
     try {
         var decoded = jwt.verify(token, key);
-        logger.log('This is the decoded token we got back', decoded);
+        logger.info('This is the decoded token we got back', decoded);
 
         return {status: true, info: decoded};
 
