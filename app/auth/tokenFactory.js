@@ -16,7 +16,9 @@ const jwt = require('jsonwebtoken');
 const RefreshToken = require('../models/common/authRefreshToken');
 const async = require('async');
 const CryptoJS = require('crypto-js');
+const log4js = require('../../config/loggerConf');
 
+var logger = log4js.getLogger('auth');
 
 //create an object and attach methods on it.
 var factory = {};
@@ -32,7 +34,7 @@ factory.generateToken = function (userId, key) {
     };
 
     var token = jwt.sign(data, key, {expiresIn: '6h'});
-    console.log(token);
+    logger.log(token);
     //return the token to send to the client.
     return token
 };
@@ -46,7 +48,7 @@ factory.verifyToken = function (token, key) {
     //if there is an error i.e the token is invalid it will be caught.
     try {
         var decoded = jwt.verify(token, key);
-        console.log('This is the decoded token we got back', decoded);
+        logger.log('This is the decoded token we got back', decoded);
 
         return {status: true, info: decoded};
 
