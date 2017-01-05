@@ -5,3 +5,22 @@
 [2017-01-03 22:40:02.179] [INFO] auth - This is the decoded token we got back { userId: '5823eb10d93cd60a64e2fa0c',
   iat: 1483499058,
   exp: 1483520658 }
+[2017-01-04 22:22:50.471] [INFO] auth - 
+[2017-01-04 22:29:49.925] [INFO] auth - This is the decoded token we got back { userId: '5823eb10d93cd60a64e2fa0c',
+  iat: 1483586570,
+  exp: 1483608170 }
+[2017-01-04 22:32:14.739] [INFO] auth - This is the decoded token we got back { userId: '5823eb10d93cd60a64e2fa0c',
+  iat: 1483586570,
+  exp: 1483608170 }
+[2017-01-04 22:32:16.322] [INFO] auth - This is the decoded token we got back { userId: '5823eb10d93cd60a64e2fa0c',
+  iat: 1483586570,
+  exp: 1483608170 }
+[2017-01-04 22:32:17.289] [INFO] auth - This is the decoded token we got back { userId: '5823eb10d93cd60a64e2fa0c',
+  iat: 1483586570,
+  exp: 1483608170 }
+[2017-01-04 22:35:19.909] [INFO] auth - This is the decoded token we got back { userId: '5823eb10d93cd60a64e2fa0c',
+  iat: 1483586570,
+  exp: 1483608170 }
+[2017-01-04 22:37:03.872] [INFO] auth - This is the decoded token we got back { userId: '5823eb10d93cd60a64e2fa0c',
+  iat: 1483586570,
+  exp: 1483608170 }

@@ -6,7 +6,7 @@
 
         $scope.$on('$viewContentLoaded', facebookAuth.fbAsyncInit);
 
-        $scope.facebookAuth = facebookAuth.fbAsyncInit;
+        //$scope.facebookAuth = facebookAuth.fbAsyncInit;
 
 
         $scope.checkStatus = function () {
