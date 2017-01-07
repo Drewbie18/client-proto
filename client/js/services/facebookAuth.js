@@ -12,7 +12,6 @@
 
         var factory = {};
 
-        $log.debug('Facebook init function has run');
 
         //wrapping the fbInit code in an angular service method
         factory.fbAsyncInit = function () {
@@ -42,7 +41,6 @@
             }(document, 'script', 'facebook-jssdk'));
 
         };
-
 
         return factory;
     };

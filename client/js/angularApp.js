@@ -48,6 +48,10 @@ angularApp.config(function ($routeProvider) {
             templateUrl: 'client/views/test-page.html',
             controller: 'test-ctrl'
         })
+        .when('/fb-login', {
+        templateUrl: 'client/views/fb-test.html',
+        controller: 'fb-ctrl'
+    })
 
 
 });

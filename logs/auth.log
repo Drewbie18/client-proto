@@ -24,3 +24,9 @@
 [2017-01-04 22:37:03.872] [INFO] auth - This is the decoded token we got back { userId: '5823eb10d93cd60a64e2fa0c',
   iat: 1483586570,
   exp: 1483608170 }
+[2017-01-04 22:43:19.943] [INFO] auth - This is the decoded token we got back { userId: '5823eb10d93cd60a64e2fa0c',
+  iat: 1483586570,
+  exp: 1483608170 }
+[2017-01-04 22:44:03.570] [INFO] auth - This is the decoded token we got back { userId: '5823eb10d93cd60a64e2fa0c',
+  iat: 1483586570,
+  exp: 1483608170 }
