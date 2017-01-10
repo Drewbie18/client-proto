@@ -11,8 +11,6 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var tokenFactory = require('../auth/tokenFactory');
 var async = require('async');
-const RefreshToken = require('../models/common/authRefreshToken');
-const CryptoJS = require('crypto-js');
 
 module.exports = function (app) {
 
