@@ -31,13 +31,12 @@ app.use(methodOverride('X-HTTP-Method-Override'));
 
 
 //  Morgan for Logging ==================================================
+//for the console
 var morgan = require('morgan');
 app.use(morgan('dev'));
-
-
-//  multer to upload pictures ==================================================
-var multer = require('multer');
-var upload = multer({dest: './uploads'});
+//custom config for logging to files
+var monganConfig = require('./config/morganConfig');
+monganConfig(app);
 
 
 //TODO CConfigure Middleware

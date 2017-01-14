@@ -13,7 +13,11 @@ var log4js = require('log4js');
 
 var config = {
     appenders: [{type: 'console'},
-        {type: 'file', filename: rootPath + '/logs/auth.log', category: 'auth', maxLogSize: 20480, backups: 3}]
+        {type: 'file',
+            filename: rootPath + '/logs/auth.log',
+            category: 'auth',
+            maxLogSize: 10*1024*1024, //10Mb
+            backups: 3}]
 };
 
 log4js.configure(config);

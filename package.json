@@ -37,6 +37,7 @@
     "express-messages": "^1.0.1",
     "express-session": "^1.14.2",
     "express-validator": "^2.21.0",
+    "file-stream-rotator": "0.0.7",
     "jsonwebtoken": "^7.1.9",
     "log4js": "^1.1.0",
     "method-override": "^2.3.6",

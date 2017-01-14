@@ -31,7 +31,7 @@ module.exports = function (app) {
             callbackURL: configAuth.facebookAuth.callBackUrl
 
         },
-        function (token, refreshToken, profile, done) {
+        function (accessToken, refreshToken, profile, done) {
 
         }
     ))
