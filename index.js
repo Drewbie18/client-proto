@@ -76,8 +76,7 @@ app.use(function (req, res, next) {
     next();
 });
 
-//define port to run client app
-var port = process.env.port || 5050;
+
 
 
 //quick check to see if mongo is connected
@@ -94,6 +93,9 @@ require('./app/user-routes/userLoginLocal')(app); //configure user login with lo
 require('./app/test/tokenTest')(app); //test token work flow with client.
 require('./app/auth/tokenHandler')(app); //token verification route
 
+
+//define port to run client app
+var port = process.env.port || 5050;
 app.listen(port);
 console.log('The Client is running on port:', port);
 
