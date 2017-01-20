@@ -40,3 +40,30 @@
   exp: 1484816664 }
 [2017-01-18 22:05:43.523] [INFO] auth - 
 [2017-01-19 20:30:19.600] [INFO] auth - 
+[2017-01-19 22:13:43.598] [INFO] auth - This is the decoded token we got back { userId: '5823eb10d93cd60a64e2fa0c',
+  iat: 1484875819,
+  exp: 1484897419 }
+[2017-01-19 22:28:05.748] [INFO] auth - This is the decoded token we got back { userId: '5823eb10d93cd60a64e2fa0c',
+  iat: 1484875819,
+  exp: 1484897419 }
+[2017-01-19 22:28:28.825] [INFO] auth - This is the decoded token we got back { userId: '5823eb10d93cd60a64e2fa0c',
+  iat: 1484875819,
+  exp: 1484897419 }
+[2017-01-19 23:03:17.783] [INFO] auth - This is the decoded token we got back { userId: '5823eb10d93cd60a64e2fa0c',
+  iat: 1484875819,
+  exp: 1484897419 }
+[2017-01-19 23:03:49.270] [INFO] auth - This is the decoded token we got back { userId: '5823eb10d93cd60a64e2fa0c',
+  iat: 1484875819,
+  exp: 1484897419 }
+[2017-01-19 23:04:58.788] [INFO] auth - The user was not found in the system. Creating a new user using facebookinformation. { id: '10101645600755501',
+  username: undefined,
+  displayName: 'Kessel Payette',
+  name: 
+   { familyName: undefined,
+     givenName: undefined,
+     middleName: undefined },
+  gender: undefined,
+  profileUrl: undefined,
+  provider: 'facebook',
+  _raw: '{"name":"Kessel Payette","id":"10101645600755501"}',
+  _json: { name: 'Kessel Payette', id: '10101645600755501' } }

@@ -9,6 +9,8 @@
  */
 
 var tokenFactory = require('./tokenFactory');
+const log4js = require('../../config/loggerConf');
+var logger = log4js.getLogger('auth');
 
 module.exports = function (app, passport) {
 
@@ -18,8 +20,8 @@ module.exports = function (app, passport) {
         //if this function is called the user was authenticated. If not passport will return a 401 Unauthorized
         function (req, res) {
 
-            console.log('Login success, generating tokens for user.');
-            console.log('user object returned from auth', req.user._id);
+            logger.info('Login success, generating tokens for user.', req.user);
+
             //generate Auth token synchronously
             var authToken = tokenFactory.generateToken(req.user._id);
             var key = 'secret-key';
@@ -32,11 +34,19 @@ module.exports = function (app, passport) {
                     //if the status returns false send 401 unauthorized
                     res.status(401).send('Token is not valid.');
                 }
-            };
+            }
+
             //generate and encrypt refreshToken via async waterFall
             tokenFactory.generateRefreshToken(req.user._id, key, sendResult);
-
         });
 
 
-}
+    //------Facebook Auth routes.
+    app.get('/v1/auth/facebook', passport.authenticate('facebook', {scope: 'email'}));
+
+    app.get('/v1/auth/facebook/callback', passport.authenticate('facebook', {failureRedirect: '/'}),
+        function (req, res) {
+            res.stats(200).send('logged in with facebook!');
+        }
+    )
+};

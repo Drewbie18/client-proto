@@ -66,6 +66,7 @@ var passport = require('passport');
 app.use(passport.initialize());
 app.use(passport.session());
 require('./app/auth/localAuthConfig')(passport);
+require('./app/auth/facebookAuth')(passport);
 require('./app/auth/authRoutes')(app, passport); //auth routes using configured passport
 
 
