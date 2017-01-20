@@ -65,6 +65,8 @@ app.use(expressSession({
 var passport = require('passport');
 app.use(passport.initialize());
 app.use(passport.session());
+require('./app/auth/localAuthConfig')(passport);
+require('./app/auth/authRoutes')(app, passport); //auth routes using configured passport
 
 
 //Middleware for messages
@@ -77,8 +79,6 @@ app.use(function (req, res, next) {
 });
 
 
-
-
 //quick check to see if mongo is connected
 app.get('/api/mongo-connect', function (req, res) {
     console.log(mongoose.connection.readyState);
@@ -88,8 +88,10 @@ app.get('/api/mongo-connect', function (req, res) {
 });
 
 // routes ==================================================
+
+
 require('./app/routes')(app); // configure our routes
-require('./app/user-routes/userLoginLocal')(app); //configure user login with local strategy
+
 require('./app/test/tokenTest')(app); //test token work flow with client.
 require('./app/auth/tokenHandler')(app); //token verification route
 

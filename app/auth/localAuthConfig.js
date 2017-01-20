@@ -1,20 +1,18 @@
 /**
- * Created by Drew on 2016-11-02.
+ * Created by Drew on 2017-01-18.
  *
- * User Login using passport and the Local strategy
+ * This file will contain the local strategy configuration for passport.
  *
  */
-//require access to user list
+
 var User = require('../models/common/user');
-var bcrypt = require('bcryptjs'); //to compare passowrd hashes.
-var passport = require('passport');
+var bcrypt = require('bcryptjs'); //to compare password hashes.
 var LocalStrategy = require('passport-local').Strategy;
-var tokenFactory = require('../auth/tokenFactory');
-var async = require('async');
 
-module.exports = function (app) {
 
-    var userId;
+module.exports = function(passport){
+
+
 
     passport.serializeUser(function (user, done) {
         done(null, user._id);
@@ -67,7 +65,6 @@ module.exports = function (app) {
                         console.log('There was an error comparing the password hashes', err);
                     } else if (res) {
                         console.log('password hashes match');
-                        userId = user._id;
 
                         return done(null, user);
                     }
@@ -78,33 +75,4 @@ module.exports = function (app) {
             });
         }
     ));
-
-
-    // a login request is a 'post' request
-    app.post('/user/login/local', passport.authenticate('local'),  //can add custom callback to authenticate function
-
-        //if this function is called the user was authenticated. If not passport will return a 401 Unauthorized
-        function (req, res) {
-
-            console.log('Login success, generating tokens for user.');
-            console.log('user object returned from auth', req.user._id);
-            //generate Auth token synchronously
-            var authToken = tokenFactory.generateToken(req.user._id);
-            var key = 'secret-key';
-
-            function sendResult(successResponse) {
-                //if true send the okay status, if there was an error this would be undefined or null
-                if (successResponse.refreshToken) {
-                    res.header('x-auth', authToken).send(successResponse);
-                } else {
-                    //if the status returns false send 401 unauthorized
-                    res.status(401).send('Token is not valid.');
-                }
-            };
-            //generate and encrypt refreshToken via async waterFall
-            tokenFactory.generateRefreshToken(req.user._id, key, sendResult);
-
-        });
-
-
 };
